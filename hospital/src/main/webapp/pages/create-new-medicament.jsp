@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Create medicament</title>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/general.css" />
 </head>
 <body>
 	<div class="container">
@@ -13,12 +17,10 @@
 			height="50"> </a>
 
 		<form class="form register-form" method="POST" action="main">
-			<legend>
 				<h2>
-					<a class="brand">Create new medicament</a>
+					<a>Create new medicament</a>
 				</h2>
-				<hr>
-			</legend>
+				<hr />
 			<div class="body">
 				<!--  Name  -->
 				<div class="control-group">
@@ -49,8 +51,8 @@
 			<div class="footer">
 				<input type="hidden" name="action" value="add-medicament" />
 				<div class="btnfirst">
-					<button class="btn btn-access" type="submit">Submit</button>
-					<button class="btn btn-access" type="button"
+					<button class="btn btn-primary btn-sm mb-2" type="submit">Submit</button>
+					<button class="btn btn-primary btn-sm mb-2" type="button"
 						onClick='location.href="http://localhost:8080/hospital"'>Return</button>
 				</div>
 			</div>

@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Medicaments</title>
+<title>Certificates</title>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen"
@@ -18,50 +16,11 @@
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
 	</div>
-	<hr>
-
-	<h5>An organization that concentrates all kinds of modern medical
-		diagnostic, specialized medical care and rehabilitation technologies.
-		The MCR is actively researching new methods of diagnosis, treatment
-		and rehabilitation of specialized diseases.</h5>
-
-	<div class="container">
-		<c:forEach var="medicament" items="${medicaments}">
-		<div class="border-bottom border-info">
-			<div class="row">
-				<div class="col-md-5">
-					<img
-						src="https://thumbs.dreamstime.com/b/набор-значков-medicament-символы-фармацевтических-и-обработки-медицинские-176848088.jpg"
-						width="190" height="130" alt="Bootstrap Blocks Owl Carousel 1"
-						alt="Bootstrap Blocks Owl Carousel 1" />
-				</div>
-				<div class="col-md-5">
-					<div class="category">Name: <b>${medicament.name}</b></div>
-					<p class="post-title">Description: ${medicament.description}</p>
-					<p class="post-description">Cost: ${medicament.cost}$</p>
-				
-			</div>
-			<div class="col-md-2">
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="delete-medicaments" /> <input
-						type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-danger btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Delete service
-					</button>
-				</form>
-
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="go-to-edit-medicament" />
-					<input type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-primary btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Edit medicament
-					</button>
-				</form>
-			</div>
-			</div>
-			</div>
-		</c:forEach>
-	</div>
+	<hr />
+	<div class="text-center">
+	<img src="https://i.imgur.com/4MMuv1L.jpg" width="400" height="200"
+		class="img-thumbnail">
+		</div>
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
@@ -126,7 +85,7 @@
 				<!-- Grid column -->
 				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 					<!-- Links -->
-					<h6 class="text-uppercase fw-bold mb-4"></h6>
+					<h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
 					<p>
 						<a href="${pageContext.request.contextPath}/pages/index.jsp"
 							class="text-reset">Main</a>

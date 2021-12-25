@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Medicaments</title>
+<title>Medical Service</title>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen"
@@ -19,46 +19,36 @@
 			height="50"> </a>
 	</div>
 	<hr>
+	<h5>Diagnostics is an integral part of modern medicine, without
+		which it is impossible to provide complete medical care. Thanks to
+		modern equipment and reagents, laboratory diagnostics makes it
+		possible to obtain qualitative and maximally informative data on the
+		processes occurring in our body in a fairly short period of time.</h5>
+	<br />
+	<h5>Clinical and diagnostic laboratory "MCR" today is the latest
+		achievements of laboratory diagnostics, standardization, automation of
+		research processes, excluding the human factor. This is the most
+		modern equipment and reagents of world producers, closed test systems,
+		qualified specialists of the first and the highest category, the
+		confirmed quality of laboratory tests.</h5>
+	<br />
+	<div class="border-bottomborder-info">
 
-	<h5>An organization that concentrates all kinds of modern medical
-		diagnostic, specialized medical care and rehabilitation technologies.
-		The MCR is actively researching new methods of diagnosis, treatment
-		and rehabilitation of specialized diseases.</h5>
+		<c:forEach var="service" items="${services}">
+			<div class="border-bottom border-info">
+				<div class="row">
 
-	<div class="container">
-		<c:forEach var="medicament" items="${medicaments}">
-		<div class="border-bottom border-info">
-			<div class="row">
-				<div class="col-md-5">
-					<img
-						src="https://thumbs.dreamstime.com/b/набор-значков-medicament-символы-фармацевтических-и-обработки-медицинские-176848088.jpg"
-						width="190" height="130" alt="Bootstrap Blocks Owl Carousel 1"
-						alt="Bootstrap Blocks Owl Carousel 1" />
+					<div class="col-md-4">
+						<img
+							src="https://www.lode.by/images/cache/b7f/4bdfb0f8aaf0ca20115a55c186091749.jpg"
+							width="190" height="130" alt="Bootstrap Blocks Owl Carousel 1" />
+					</div>
+					<div class="col-md-5">
+						<div class="category">Name: <b>${service.name}</b></div>
+						<p class="post-title">Description: ${service.description}</p>
+						<p class="post-description">Cost: ${service.cost}$</p>
+					</div>
 				</div>
-				<div class="col-md-5">
-					<div class="category">Name: <b>${medicament.name}</b></div>
-					<p class="post-title">Description: ${medicament.description}</p>
-					<p class="post-description">Cost: ${medicament.cost}$</p>
-				
-			</div>
-			<div class="col-md-2">
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="delete-medicaments" /> <input
-						type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-danger btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Delete service
-					</button>
-				</form>
-
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="go-to-edit-medicament" />
-					<input type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-primary btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Edit medicament
-					</button>
-				</form>
-			</div>
-			</div>
 			</div>
 		</c:forEach>
 	</div>
@@ -126,7 +116,7 @@
 				<!-- Grid column -->
 				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 					<!-- Links -->
-					<h6 class="text-uppercase fw-bold mb-4"></h6>
+					<h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
 					<p>
 						<a href="${pageContext.request.contextPath}/pages/index.jsp"
 							class="text-reset">Main</a>

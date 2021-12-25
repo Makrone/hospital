@@ -1,67 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Medicaments</title>
+<title>Contact</title>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/general.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/timeline.css" />
 </head>
 <body>
-	<div class="container">
+<div class="container">
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
 	</div>
-	<hr>
-
-	<h5>An organization that concentrates all kinds of modern medical
-		diagnostic, specialized medical care and rehabilitation technologies.
-		The MCR is actively researching new methods of diagnosis, treatment
-		and rehabilitation of specialized diseases.</h5>
-
-	<div class="container">
-		<c:forEach var="medicament" items="${medicaments}">
-		<div class="border-bottom border-info">
-			<div class="row">
-				<div class="col-md-5">
-					<img
-						src="https://thumbs.dreamstime.com/b/набор-значков-medicament-символы-фармацевтических-и-обработки-медицинские-176848088.jpg"
-						width="190" height="130" alt="Bootstrap Blocks Owl Carousel 1"
-						alt="Bootstrap Blocks Owl Carousel 1" />
+		<hr />
+				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+					<!-- Links -->
+					<h2 class="text-uppercase fw-bold mb-4">Contact</h2>
+					<p>
+						<i class="fas fa-home me-3"></i> Minsk, Belarus 220039
+					</p>
+					<p>
+						<i class="fas fa-envelope me-3"></i> infomlux.by@gmail.com
+					</p>
+					<p>
+						<i class="fas fa-phone me-3"></i> + 375 29 111 28 28
+					</p>
 				</div>
-				<div class="col-md-5">
-					<div class="category">Name: <b>${medicament.name}</b></div>
-					<p class="post-title">Description: ${medicament.description}</p>
-					<p class="post-description">Cost: ${medicament.cost}$</p>
-				
-			</div>
-			<div class="col-md-2">
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="delete-medicaments" /> <input
-						type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-danger btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Delete service
-					</button>
-				</form>
-
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="go-to-edit-medicament" />
-					<input type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-primary btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Edit medicament
-					</button>
-				</form>
-			</div>
-			</div>
-			</div>
-		</c:forEach>
-	</div>
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
@@ -126,7 +96,7 @@
 				<!-- Grid column -->
 				<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 					<!-- Links -->
-					<h6 class="text-uppercase fw-bold mb-4"></h6>
+					<h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
 					<p>
 						<a href="${pageContext.request.contextPath}/pages/index.jsp"
 							class="text-reset">Main</a>

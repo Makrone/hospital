@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.user-slide {
+	display: flex;
+}
+
+.user-img {
+	flex: 1;
+}
+
+.user-review {
+	flex: 3;
+}
+
+.user-actions {
+	flex: 1;
+}
+
+.user-actions FORM {
+	display: inline;
+}
+.btn-space {
+    margin-right: 5px;
+}

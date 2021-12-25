@@ -5,20 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Creating</title>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/general.css" />
 </head>
 <body>
 <div class="container">
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
-
+<hr />
 		<form class="form register-form" method="POST" action="main">
-			<legend>
 				<h2>
-					<a class="brand">Create new Treatment</a>
+					<a>Create new Treatment</a>
 				</h2>
-				<hr>
-			</legend>
 			<div class="body">
 				<!--  Name  -->
 				<div class="control-group">
@@ -49,8 +50,8 @@
 			<div class="footer">
 				<input type="hidden" name="action" value="add-treatment" />
 				<div class="btnfirst">
-					<button class="btn btn-access" type="submit" name="treatment">Submit</button>
-					<button class="btn btn-access" type="button"
+					<button class="btn btn-primary btn-sm mb-2" type="submit" name="treatment">Submit</button>
+					<button class="btn btn-primary btn-sm mb-2" type="button"
 						onClick='location.href="http://localhost:8080/hospital"'>Return</button>
 				</div>
 			</div>
