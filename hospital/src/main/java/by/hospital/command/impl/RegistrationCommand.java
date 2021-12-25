@@ -3,12 +3,15 @@ package by.hospital.command.impl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import by.hospital.command.ICommand;
 import by.hospital.domain.User;
 import by.hospital.domain.type.Gender;
 import by.hospital.domain.type.UserType;
+import by.hospital.exception.ServiceException;
 import by.hospital.service.UserService;
 
 public class RegistrationCommand implements ICommand {
@@ -23,7 +26,7 @@ public class RegistrationCommand implements ICommand {
 
 	private BCryptPasswordEncoder passwordEncoder;
 	private UserService userService;
-	
+	private static final Logger logger = LogManager.getLogger(RegistrationCommand.class);
 
 	public RegistrationCommand() {
 		super();
@@ -34,17 +37,23 @@ public class RegistrationCommand implements ICommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		User user = new User();
-		user.setFirstName(request.getParameter(FIRST_NAME));
-		user.setLastName(request.getParameter(LAST_NAME));
-		user.setGender(Gender.valueOf(request.getParameter(GENDER)));
-		user.setPhone(request.getParameter(PHONE));
-		user.setEmail(request.getParameter(EMAIL));
-		user.setType(UserType.valueOf(request.getParameter(TYPE)));
-		user.setUsername(request.getParameter(USERNAME));
-		user.setPassword(passwordEncoder.encode(request.getParameter(PASSWORD)));
-		userService.create(user);
-		return "/pages/login.jsp";
+		try {
+			User user = new User();
+			user.setFirstName(request.getParameter(FIRST_NAME));
+			user.setLastName(request.getParameter(LAST_NAME));
+			user.setGender(Gender.valueOf(request.getParameter(GENDER)));
+			user.setPhone(request.getParameter(PHONE));
+			user.setEmail(request.getParameter(EMAIL));
+			user.setType(UserType.valueOf(request.getParameter(TYPE)));
+			user.setUsername(request.getParameter(USERNAME));
+			user.setPassword(passwordEncoder.encode(request.getParameter(PASSWORD)));
+			userService.create(user);
+			return "/pages/login.jsp";
+		} catch (ServiceException e) {
+			logger.error("There was an error during registration", e);
+			request.setAttribute("errorMessage", "There was an error during registration");
+			return "/pages/error-500.jsp";
+		}
 	}
 
 }

@@ -9,10 +9,11 @@ import by.hospital.dao.impl.UserDAOImpl;
 import by.hospital.domain.User;
 import by.hospital.domain.type.Gender;
 import by.hospital.domain.type.UserType;
+import by.hospital.exception.DAOException;
 
 public class TestConnection {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DAOException{
 		Date date = new Date();
 		Timestamp ts = new Timestamp(date.getTime());
 		User user = new User();

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.hospital.command.CommandFactory;
 import by.hospital.command.ICommand;
 import by.hospital.db.ConnectionPool;
@@ -19,6 +22,8 @@ public class Controller extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger logger = LogManager.getLogger(Controller.class);
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -52,6 +57,7 @@ public class Controller extends HttpServlet {
 			ConnectionPool.getInstance().destroy();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error("Error creating a singleton class ", e);
 		}
 		super.destroy();
 	}

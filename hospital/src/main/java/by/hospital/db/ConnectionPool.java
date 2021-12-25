@@ -9,7 +9,11 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ConnectionPool {
+	private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
 	private static BlockingQueue<Connection> freeConnections;
 	private static List<Connection> allConnections;
 	private static final int CONNECTION_POOL_SIZE = 10;
@@ -54,6 +58,7 @@ public class ConnectionPool {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			logger.error("Error on connection pool initiation  ", e);
 		}
 
 	}
@@ -64,9 +69,11 @@ public class ConnectionPool {
 			connection = freeConnections.take();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+			logger.error("Error on get connection pool", e);
+		} 
+		
 		return connection;
-	}
+	} 
 
 	public void closeConnection(Connection connection) {
 

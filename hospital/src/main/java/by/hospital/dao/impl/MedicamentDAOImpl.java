@@ -10,18 +10,19 @@ import java.util.List;
 
 import by.hospital.dao.IMedicamentDAO;
 import by.hospital.domain.Medicament;
+import by.hospital.exception.DAOException;
 
 public class MedicamentDAOImpl extends EntityDAO<Medicament> implements IMedicamentDAO {
 
 	private static final String SELECT_ALL_MEDICAMENTS = "SELECT * FROM epam.medicament";
 	private static final String SELECT_MEDICAMENT_BY_ID = "SELECT * FROM epam.medicament WHERE ID = ?";
 	private static final String DELETE_MEDICAMENT_BY_ID = "DELETE FROM epam.medicament WHERE ID = ?";
-	private static final String UPDATED_MEDICAMENT_BY_ID = "UPDATE epam.medicament SET name = ?, descriptoin = ? , cost = ? WHERE ID= ?";
+	private static final String UPDATED_MEDICAMENT_BY_ID = "UPDATE epam.medicament SET name = ?, description = ? , cost = ? WHERE ID= ?";
 	private static final String CREATED_MEDICAMENT = "INSERT INTO epam.medicament (name,description,cost) values(?,?,?)";
 	private static final String FIND_BY_NAME = "SELECT * FROM epam.medicament WHERE name = ?";
 
 	@Override
-	public Long create(Medicament entity) {
+	public Long create(Medicament entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(CREATED_MEDICAMENT,
 				Statement.RETURN_GENERATED_KEYS)) {
@@ -29,7 +30,7 @@ public class MedicamentDAOImpl extends EntityDAO<Medicament> implements IMedicam
 			preparedStatement.setString(2, entity.getDescription());
 			preparedStatement.setBigDecimal(3, entity.getCost());
 			if (preparedStatement.executeUpdate() == 0) {
-				throw new SQLException("Creating medicament failed, no rows affected.");
+				throw new DAOException("Creating medicament failed, no rows affected.");
 			}
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
@@ -39,45 +40,49 @@ public class MedicamentDAOImpl extends EntityDAO<Medicament> implements IMedicam
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Create error by Medicament", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 	}
 
 	@Override
-	public Long update(Medicament entity) {
+	public Long update(Medicament entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(UPDATED_MEDICAMENT_BY_ID)) {
 			if (entity.getId() == null) {
-				throw new SQLException("Entity id can't be null. ");
+				throw new DAOException("Entity id can't be null. ");
 			}
 			preparedStatement.setString(1, entity.getName());
 			preparedStatement.setString(2, entity.getDescription());
 			preparedStatement.setBigDecimal(3, entity.getCost());
+			preparedStatement.setLong(4, entity.getId());
 			if (preparedStatement.executeUpdate() > 1) {
-				throw new SQLException("Updated more then one entity. Entity ID: " + entity.getId());
+				throw new DAOException("Updated more then one entity. Entity ID: " + entity.getId());
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Update error by Medicament", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 	}
 
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(DELETE_MEDICAMENT_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			return preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Delete error by Medicament", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return false;
 	}
 
 	@Override
-	public Medicament get(Long id) {
+	public Medicament get(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(SELECT_MEDICAMENT_BY_ID)) {
 			preparedStatement.setLong(1, id);
@@ -86,14 +91,16 @@ public class MedicamentDAOImpl extends EntityDAO<Medicament> implements IMedicam
 				return populateMedicament(resultSet);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get error by Medicament", e);
+		} finally {
+			releaseConnection(c);
 		}
 
 		return null;
 	}
 
 	@Override
-	public List<Medicament> getAll() {
+	public List<Medicament> getAll() throws DAOException {
 		Connection c = getConnection();
 		List<Medicament> medicaments = new ArrayList<>();
 
@@ -103,26 +110,26 @@ public class MedicamentDAOImpl extends EntityDAO<Medicament> implements IMedicam
 				medicaments.add(populateMedicament(resultSet));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get all error by Medicament", e);
+		} finally {
+			releaseConnection(c);
 		}
-
-		releaseConnection(c);
 
 		return medicaments;
 	}
 
 	@Override
-	public Medicament findByName(String name) {
+	public Medicament findByName(String name) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(FIND_BY_NAME)) {
 			preparedStatement.setString(1, name);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			return populateMedicament(resultSet);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Find name error of Medicament", e);
+		} finally {
+			releaseConnection(c);
 		}
-
-		return null;
 	}
 
 	private Medicament populateMedicament(ResultSet resultSet) throws SQLException {

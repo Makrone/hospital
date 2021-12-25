@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import by.hospital.command.ICommand;
 import by.hospital.domain.User;
 
-public class ShowClientOrderCommand implements ICommand{
-	
+public class ShowClientOrderCommand implements ICommand {
+
 	private static final String INFO_USER = "user";
 	private static final String FIND_DOCTOR = "DOCTOR";
 
@@ -17,7 +17,6 @@ public class ShowClientOrderCommand implements ICommand{
 		String page = null;
 		User user = (User) request.getSession().getAttribute(INFO_USER);
 
-		
 		return null;
 	}
 

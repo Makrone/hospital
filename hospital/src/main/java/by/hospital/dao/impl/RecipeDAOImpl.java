@@ -10,6 +10,7 @@ import java.util.List;
 
 import by.hospital.dao.IRecipeDAO;
 import by.hospital.domain.Recipe;
+import by.hospital.exception.DAOException;
 
 public class RecipeDAOImpl extends EntityDAO<Recipe> implements IRecipeDAO {
 
@@ -18,9 +19,10 @@ public class RecipeDAOImpl extends EntityDAO<Recipe> implements IRecipeDAO {
 	private static final String DELETE_RECIPE_BY_ID = "DELETE FROM epam.recipe WHERE ID = ?";
 	private static final String UPDATED_RECIPE_BY_ID = "UPDATE epam.recipe SET treatment_id = ?, medicament_id = ? ,quantity = ? WHERE ID= ?";
 	private static final String CREATED_RECIPE = "INSERT INTO epam.recipe (treatment_id,medicament_id,quantity) values(?,?,?)";
+	private static final String FIND_RECIPE_BY_TREATMENT_ID = "SELECT * FROM epam.recipe WHERE treatment_id = ?";
 
 	@Override
-	public Long create(Recipe entity) {
+	public Long create(Recipe entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(CREATED_RECIPE,
 				Statement.RETURN_GENERATED_KEYS)) {
@@ -28,7 +30,7 @@ public class RecipeDAOImpl extends EntityDAO<Recipe> implements IRecipeDAO {
 			preparedStatement.setLong(2, entity.getMedicamentId());
 			preparedStatement.setInt(3, entity.getQuantity());
 			if (preparedStatement.executeUpdate() == 0) {
-				throw new SQLException("Creating recipe failed, no rows affected.");
+				throw new DAOException("Creating recipe failed, no rows affected.");
 			}
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
@@ -38,63 +40,86 @@ public class RecipeDAOImpl extends EntityDAO<Recipe> implements IRecipeDAO {
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Creatig error of Recipe", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 
 	}
 
 	@Override
-	public Long update(Recipe entity) {
+	public Long update(Recipe entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(UPDATED_RECIPE_BY_ID)) {
 			if (entity.getId() == null) {
-				throw new SQLException("Entity id can't be null. ");
+				throw new DAOException("Entity id can't be null. ");
 			}
 			preparedStatement.setLong(1, entity.getTreatmentId());
 			preparedStatement.setLong(2, entity.getMedicamentId());
 			preparedStatement.setInt(3, entity.getQuantity());
 			if (preparedStatement.executeUpdate() > 1) {
-				throw new SQLException("Updated more then one entity. Entity ID: " + entity.getId());
+				throw new DAOException("Updated more then one entity. Entity ID: " + entity.getId());
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Update error of Recipe", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 	}
 
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(DELETE_RECIPE_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			return preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Delete error of Recipe", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return false;
 
 	}
 
 	@Override
-	public Recipe get(Long id) {
+	public Recipe get(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(SELECT_RECIPE_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				return populateRecipe(resultSet);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get error of Recipe", e);
+		} finally {
+			releaseConnection(c);
 		}
 
 		return null;
 	}
 
 	@Override
-	public List<Recipe> getAll() {
+	public Recipe findByTreatmentId(Long treatmentId) throws DAOException {
+		Connection c = getConnection();
+		try (PreparedStatement preparedStatement = c.prepareStatement(FIND_RECIPE_BY_TREATMENT_ID)) {
+			preparedStatement.setLong(1, treatmentId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return populateRecipe(resultSet);
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Find treatment error of Recipe", e);
+		} finally {
+			releaseConnection(c);
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<Recipe> getAll() throws DAOException {
 		Connection c = getConnection();
 		List<Recipe> recipe = new ArrayList<>();
 
@@ -104,10 +129,10 @@ public class RecipeDAOImpl extends EntityDAO<Recipe> implements IRecipeDAO {
 				recipe.add(populateRecipe(resultSet));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get all error of Recipe", e);
+		} finally {
+			releaseConnection(c);
 		}
-
-		releaseConnection(c);
 
 		return recipe;
 	}
@@ -118,13 +143,12 @@ public class RecipeDAOImpl extends EntityDAO<Recipe> implements IRecipeDAO {
 		recipe.setTreatmentId(resultSet.getLong(Fields.TREATMENT_ID));
 		recipe.setMedicamentId(resultSet.getLong(Fields.MEDICAMENT_ID));
 		recipe.setQuantity(resultSet.getInt(Fields.QUANTITY));
-
 		return recipe;
 	}
 
 	class Fields {
 		private static final String ID = "id";
-		private static final String TREATMENT_ID = "tratment_id";
+		private static final String TREATMENT_ID = "treatment_id";
 		private static final String MEDICAMENT_ID = "medicament_id";
 		private static final String QUANTITY = "quantity";
 

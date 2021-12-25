@@ -5,10 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import by.hospital.command.ICommand;
 import by.hospital.domain.User;
+import by.hospital.exception.ServiceException;
 import by.hospital.service.UserService;
 
 public class LoginCommand implements ICommand {
@@ -16,11 +19,11 @@ public class LoginCommand implements ICommand {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private static final String USERNAME = "login";
 	private static final String PASSWORD = "password";
 	private BCryptPasswordEncoder passwordEncoder;
 	private UserService userService;
+	private static final Logger logger = LogManager.getLogger(LoginCommand.class);
 
 	public LoginCommand() {
 		super();
@@ -29,27 +32,32 @@ public class LoginCommand implements ICommand {
 	}
 
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		String login = (request.getParameter(USERNAME));
-		String password = (request.getParameter(PASSWORD));
-		if (login == null) {
-			return handleLoginError(request, "Login is empty");
-		}
-		if (password == null) {
-			return handleLoginError(request, "Password is empty");
-		}
-		User user = userService.findByUsername(login);
-		if (user == null) {
-			return handleLoginError(request, "User with provided username not found");
-		}
-		if (!passwordEncoder.matches(password, user.getPassword())) {
-			return handleLoginError(request, "Login or password not found");
-		}
-		HttpSession session = request.getSession(true);
-		session.setAttribute("user", user);
-		session.setMaxInactiveInterval(300);
+		try {
+			String login = (request.getParameter(USERNAME));
+			String password = (request.getParameter(PASSWORD));
+			if (login == null) {
+				return handleLoginError(request, "Login is empty");
+			}
+			if (password == null) {
+				return handleLoginError(request, "Password is empty");
+			}
+			User user = userService.findByUsername(login);
+			if (user == null) {
+				return handleLoginError(request, "User with provided username not found");
+			}
+			if (!passwordEncoder.matches(password, user.getPassword())) {
+				return handleLoginError(request, "Login or password not found");
+			}
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", user);
+			session.setMaxInactiveInterval(300);
+			return handleLoginSuccess(request, user);
 
-		return handleLoginSuccess(request, user);
-
+		} catch (ServiceException e) {
+			logger.error("An error occurred during login", e);
+			request.setAttribute("errorMessage", "An error occurred during login");
+			return "/pages/error-500.jsp";
+		}
 	}
 
 	private String handleLoginError(HttpServletRequest request, String errorMessage) {

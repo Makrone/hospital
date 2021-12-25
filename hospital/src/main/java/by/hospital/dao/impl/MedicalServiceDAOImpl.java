@@ -10,6 +10,7 @@ import java.util.List;
 
 import by.hospital.dao.IMedicalServiceDAO;
 import by.hospital.domain.MedicalService;
+import by.hospital.exception.DAOException;
 
 public class MedicalServiceDAOImpl extends EntityDAO<MedicalService> implements IMedicalServiceDAO {
 
@@ -20,7 +21,7 @@ public class MedicalServiceDAOImpl extends EntityDAO<MedicalService> implements 
 	private static final String CREATED_SERVICE = "INSERT INTO epam.medical_service (cost,description,name) values(?,?,?)";
 
 	@Override
-	public Long create(MedicalService entity) {
+	public Long create(MedicalService entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(CREATED_SERVICE,
 				Statement.RETURN_GENERATED_KEYS)) {
@@ -28,7 +29,7 @@ public class MedicalServiceDAOImpl extends EntityDAO<MedicalService> implements 
 			preparedStatement.setString(2, entity.getDescription());
 			preparedStatement.setString(3, entity.getName());
 			if (preparedStatement.executeUpdate() == 0) {
-				throw new SQLException("Creating service failed, no rows affected.");
+				throw new DAOException("Creating service failed, no rows affected.");
 			}
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
@@ -38,63 +39,68 @@ public class MedicalServiceDAOImpl extends EntityDAO<MedicalService> implements 
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Create error by MedicalService", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 	}
 
 	@Override
-	public Long update(MedicalService entity) {
+	public Long update(MedicalService entity) throws DAOException{
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(UPDATED_SERVICE_BY_ID)) {
 			if (entity.getId() == null) {
-				throw new SQLException("Entity id can't be null. ");
-			}			
+				throw new DAOException("Entity id can't be null. ");
+			}
 			preparedStatement.setBigDecimal(1, entity.getCost());
 			preparedStatement.setString(2, entity.getDescription());
 			preparedStatement.setString(3, entity.getName());
 			preparedStatement.setLong(4, entity.getId());
 			if (preparedStatement.executeUpdate() > 1) {
-				throw new SQLException("Updated more then one entity. Entity ID: " + entity.getId());
+				throw new DAOException("Updated more then one entity. Entity ID: " + entity.getId());
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Update error by MedicalService", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 	}
 
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Long id) throws DAOException{
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(DELETE_SERVICE_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			return preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Delete error by MedicalService", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return false;
 
 	}
 
 	@Override
-	public MedicalService get(Long id) {
+	public MedicalService get(Long id) throws DAOException{
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(SELECT_SERVICE_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				return populateService(resultSet);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get by id error by MedicalService", e);
+		} finally {
+			releaseConnection(c);
 		}
 
 		return null;
 	}
 
 	@Override
-	public List<MedicalService> getAll() {
+	public List<MedicalService> getAll() throws DAOException{
 		Connection c = getConnection();
 		List<MedicalService> service = new ArrayList<>();
 
@@ -104,10 +110,10 @@ public class MedicalServiceDAOImpl extends EntityDAO<MedicalService> implements 
 				service.add(populateService(resultSet));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get all error by MedicalService", e);
+		} finally {
+			releaseConnection(c);
 		}
-
-		releaseConnection(c);
 
 		return service;
 	}

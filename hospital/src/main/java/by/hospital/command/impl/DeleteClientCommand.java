@@ -11,16 +11,15 @@ import org.apache.logging.log4j.Logger;
 
 import by.hospital.command.ICommand;
 import by.hospital.domain.User;
-import by.hospital.domain.type.UserType;
 import by.hospital.exception.ServiceException;
 import by.hospital.service.UserService;
 
-public class ShowAllClientsCommand implements ICommand {
+public class DeleteClientCommand implements ICommand {
 
 	private UserService userService;
-	private static final Logger logger = LogManager.getLogger(ShowAllClientsCommand.class);
+	private static final Logger logger = LogManager.getLogger(DeleteClientCommand.class);
 
-	public ShowAllClientsCommand() {
+	public DeleteClientCommand() {
 		super();
 		userService = new UserService();
 	}
@@ -28,12 +27,19 @@ public class ShowAllClientsCommand implements ICommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
-			List<User> user = userService.findByType(UserType.CLIENT);
+			String serviceId = request.getParameter("id");
+			if (serviceId == null) {
+				request.setAttribute("ErrorMessage", "User id missed");
+			} else {
+				userService.delete(Long.valueOf(serviceId));
+
+			}
+			List<User> user = userService.getAll();
 			request.setAttribute("users", user);
 			return "/pages/show-clients.jsp";
 		} catch (ServiceException e) {
-			logger.error("An error occurred during the display of all clients", e);
-			request.setAttribute("errorMessage", "An error occurred during the display of all clients");
+			logger.error("An error occurred during client deletion ", e);
+			request.setAttribute("errorMessage", "An error occurred during client deletion ");
 			return "/pages/error-500.jsp";
 		}
 	}

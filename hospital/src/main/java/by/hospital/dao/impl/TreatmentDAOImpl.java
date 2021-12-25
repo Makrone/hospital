@@ -10,25 +10,71 @@ import java.util.List;
 
 import by.hospital.dao.ITreatmentDAO;
 import by.hospital.domain.Treatment;
+import by.hospital.exception.DAOException;
 
 public class TreatmentDAOImpl extends EntityDAO<Treatment> implements ITreatmentDAO {
 
 	private static final String SELECT_ALL_TREATMENS = "SELECT * FROM epam.treatment";
 	private static final String SELECT_TREATMENT_BY_ID = "SELECT * FROM epam.treatment WHERE ID = ?";
 	private static final String DELETE_TREATMENT_BY_ID = "DELETE FROM epam.treatment WHERE ID = ?";
-	private static final String UPDATED_TREATMENT_BY_ID = "UPDATE epam.treatment SET client_id = ?,doctor_id = ? ,medical_conclusion = ? WHERE ID= ?";
-	private static final String CREATED_TREATMENT = "INSERT INTO epam.treatment (client_id,doctor_id,medical_conclusion) values(?,?,?)";
+	private static final String UPDATED_TREATMENT_BY_ID = "UPDATE epam.treatment SET client_id=?, doctor_id=?, medical_conclusion=?, date_time=? WHERE ID=?";
+	private static final String CREATED_TREATMENT = "INSERT INTO epam.treatment (client_id, doctor_id, medical_conclusion, date_time) values(?,?,?,?)";
+	private static final String SELECT_TREATMENS_BY_DOCTOR_ID = "SELECT * FROM epam.treatment WHERE doctor_id=?";
+	private static final String SELECT_TREATMENS_BY_CLIENT_ID = "SELECT * FROM epam.treatment WHERE client_id=?";
 
 	@Override
-	public Long create(Treatment entity) {
+	public List<Treatment> findByDoctorId(Long doctorId) throws DAOException {
+		Connection c = getConnection();
+		List<Treatment> treatmens = new ArrayList<>();
+
+		try (PreparedStatement preparedStatement = c.prepareStatement(SELECT_TREATMENS_BY_DOCTOR_ID)) {
+			preparedStatement.setLong(1, doctorId);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				treatmens.add(populateTreatment(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Find doctor error by Treatment", e);
+		} finally {
+			releaseConnection(c);
+		}
+
+		return treatmens;
+	}
+
+	@Override
+	public List<Treatment> findByClientId(Long clientId) throws DAOException {
+		Connection c = getConnection();
+		List<Treatment> treatmens = new ArrayList<>();
+
+		try (PreparedStatement preparedStatement = c.prepareStatement(SELECT_TREATMENS_BY_CLIENT_ID)) {
+			preparedStatement.setLong(1, clientId);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				treatmens.add(populateTreatment(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Find client error by Treatment", e);
+		} finally {
+			releaseConnection(c);
+		}
+
+		return treatmens;
+	}
+
+	@Override
+	public Long create(Treatment entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(CREATED_TREATMENT,
 				Statement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setLong(1, entity.getClientId());
 			preparedStatement.setLong(2, entity.getDoctorId());
 			preparedStatement.setString(3, entity.getMedicalConclusion());
+			preparedStatement.setTimestamp(4, entity.getDateTime());
 			if (preparedStatement.executeUpdate() == 0) {
-				throw new SQLException("Creating treatment failed, no rows affected.");
+				throw new DAOException("Creating treatment failed, no rows affected.");
 			}
 			try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
@@ -38,64 +84,70 @@ public class TreatmentDAOImpl extends EntityDAO<Treatment> implements ITreatment
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Create error by Treatment", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 
 	}
 
 	@Override
-	public Long update(Treatment entity) {
+	public Long update(Treatment entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(UPDATED_TREATMENT_BY_ID)) {
 			if (entity.getId() == null) {
-				throw new SQLException("Entity id can't be null. ");
+				throw new DAOException("Entity id can't be null. ");
 			}
-			preparedStatement.setLong(1, entity.getId());
-			preparedStatement.setLong(2, entity.getClientId());
-			preparedStatement.setLong(3, entity.getDoctorId());
-			preparedStatement.setString(4, entity.getMedicalConclusion());
+			preparedStatement.setLong(1, entity.getClientId());
+			preparedStatement.setLong(2, entity.getDoctorId());
+			preparedStatement.setString(3, entity.getMedicalConclusion());
+			preparedStatement.setTimestamp(4, entity.getDateTime());
+			preparedStatement.setLong(5, entity.getId());
 			if (preparedStatement.executeUpdate() > 1) {
-				throw new SQLException("Updated more then one entity. Entity ID: " + entity.getId());
+				throw new DAOException("Updated more then one entity. Entity ID: " + entity.getId());
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Update error by Treatment", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return null;
 	}
 
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(DELETE_TREATMENT_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			return preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Delete error by Treatment", e);
+		} finally {
+			releaseConnection(c);
 		}
-		return false;
 
 	}
 
 	@Override
-	public Treatment get(Long id) {
+	public Treatment get(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(SELECT_TREATMENT_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
+			if (resultSet.next()) {
 				return populateTreatment(resultSet);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get error by Treatment", e);
+		} finally {
+			releaseConnection(c);
 		}
 
 		return null;
 	}
 
 	@Override
-	public List<Treatment> getAll() {
+	public List<Treatment> getAll() throws DAOException {
 		Connection c = getConnection();
 		List<Treatment> treatmens = new ArrayList<>();
 
@@ -105,10 +157,10 @@ public class TreatmentDAOImpl extends EntityDAO<Treatment> implements ITreatment
 				treatmens.add(populateTreatment(resultSet));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Get all error by Treatment", e);
+		} finally {
+			releaseConnection(c);
 		}
-
-		releaseConnection(c);
 
 		return treatmens;
 	}
@@ -117,6 +169,7 @@ public class TreatmentDAOImpl extends EntityDAO<Treatment> implements ITreatment
 		Treatment treatment = new Treatment();
 		treatment.setId(resultSet.getLong(Fields.ID));
 		treatment.setClientId(resultSet.getLong(Fields.ID_CLIENT));
+		treatment.setDateTime(resultSet.getTimestamp(Fields.DATE_TIME));
 		treatment.setDoctorId(resultSet.getLong(Fields.ID_DOCTOR));
 		treatment.setMedicalConclusion(resultSet.getString(Fields.MEDICAL_CONCLUSIONS));
 
@@ -126,6 +179,7 @@ public class TreatmentDAOImpl extends EntityDAO<Treatment> implements ITreatment
 	class Fields {
 		private static final String ID = "id";
 		private static final String ID_CLIENT = "client_id";
+		private static final String DATE_TIME = "date_time";
 		private static final String ID_DOCTOR = "doctor_id";
 		private static final String MEDICAL_CONCLUSIONS = "medical_conclusion";
 	}

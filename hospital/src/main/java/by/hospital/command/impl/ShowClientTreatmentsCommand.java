@@ -10,16 +10,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.hospital.command.ICommand;
-import by.hospital.domain.Treatment;
+import by.hospital.dto.TreatmentDTO;
 import by.hospital.exception.ServiceException;
 import by.hospital.service.TreatmentService;
 
-public class ShowAllTreatmentsCommand implements ICommand {
+public class ShowClientTreatmentsCommand implements ICommand {
 
 	private TreatmentService treatmentService;
-	private static final Logger logger = LogManager.getLogger(ShowAllTreatmentsCommand.class);
+	private static final Logger logger = LogManager.getLogger(ShowClientTreatmentsCommand.class);
 
-	public ShowAllTreatmentsCommand() {
+	public ShowClientTreatmentsCommand() {
 		super();
 		treatmentService = new TreatmentService();
 	}
@@ -27,14 +27,15 @@ public class ShowAllTreatmentsCommand implements ICommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
-			List<Treatment> treatService = treatmentService.getAll();
+			Long clientId = Long.valueOf(request.getParameter("clientId"));
+			List<TreatmentDTO> treatService = treatmentService.findByClientId(clientId);
 			request.setAttribute("treatments", treatService);
-			return "/pages/treatment.jsp";
-		} catch (ServiceException e) {
-			logger.error("An error occurred during the display of the treatments", e);
-			request.setAttribute("errorMessage", "An error occurred during the display of the treatments");
-			return "/pages/error-500.jsp";
 
+			return "/pages/show-client-treatments.jsp";
+		} catch (ServiceException e) {
+			logger.error("An error occurred during the display of the client's treatment", e);
+			request.setAttribute("errorMessage", "An error occurred during the display of the client's treatment");
+			return "/pages/error-500.jsp";
 		}
 	}
 

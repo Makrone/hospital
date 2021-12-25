@@ -14,12 +14,12 @@ import by.hospital.domain.MedicalService;
 import by.hospital.exception.ServiceException;
 import by.hospital.service.MedicalServiceService;
 
-public class DeleteMedicalServiceCommand implements ICommand {
+public class ShowClientAllServicesCommand implements ICommand {
 
 	private MedicalServiceService medicalService;
-	private static final Logger logger = LogManager.getLogger(DeleteMedicalServiceCommand.class);
+	private static final Logger logger = LogManager.getLogger(ShowClientAllServicesCommand.class);
 
-	public DeleteMedicalServiceCommand() {
+	public ShowClientAllServicesCommand() {
 		super();
 		medicalService = new MedicalServiceService();
 	}
@@ -27,21 +27,14 @@ public class DeleteMedicalServiceCommand implements ICommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
-			String serviceId = request.getParameter("serviceId");
-			if (serviceId == null) {
-				request.setAttribute("ErrorMessage", "Service id missed");
-			} else {
-				medicalService.delete(Long.valueOf(serviceId));
-
-			}
 			List<MedicalService> service = medicalService.getAll();
 			request.setAttribute("services", service);
-			return "/pages/service.jsp";
+			return "/pages/service-client.jsp";
 		} catch (ServiceException e) {
-			logger.error("An error occurred while uninstalling a medical service ", e);
-			request.setAttribute("errorMessage", "An error occurred while uninstalling a medical service ");
+			logger.error("An error occurred during the display of the service", e);
+			request.setAttribute("errorMessage", "An error occurred during the display of the service");
 			return "/pages/error-500.jsp";
-		}
 
+		}
 	}
 }

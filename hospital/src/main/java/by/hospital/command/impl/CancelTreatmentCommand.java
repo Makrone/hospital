@@ -10,15 +10,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.hospital.command.ICommand;
-import by.hospital.domain.Treatment;
+import by.hospital.domain.User;
+import by.hospital.dto.TreatmentDTO;
 import by.hospital.exception.ServiceException;
 import by.hospital.service.TreatmentService;
 
-public class DeleteTreatmentCommand implements ICommand {
-	private TreatmentService treatmentService;
-	private static final Logger logger = LogManager.getLogger(DeleteTreatmentCommand.class);
+public class CancelTreatmentCommand implements ICommand {
 
-	public DeleteTreatmentCommand() {
+	private TreatmentService treatmentService;
+	private static final Logger logger = LogManager.getLogger(CancelTreatmentCommand.class);
+
+	public CancelTreatmentCommand() {
 		super();
 		treatmentService = new TreatmentService();
 	}
@@ -28,20 +30,21 @@ public class DeleteTreatmentCommand implements ICommand {
 		try {
 			String treatmentId = request.getParameter("treatmentId");
 			if (treatmentId == null) {
-				request.setAttribute("ErrorMessage", "Treatment id missed");
+				request.setAttribute("ErrorMessage", "Service id missed");
 			} else {
 				treatmentService.delete(Long.valueOf(treatmentId));
 
 			}
-			List<Treatment> treatment = treatmentService.getAll();
-			request.setAttribute("treatments", treatment);
-			return "/pages/medicaments.jsp";
+
+			User user = (User) (request.getSession().getAttribute("user"));
+			List<TreatmentDTO> treatService = treatmentService.findByClientId(user.getId());
+			request.setAttribute("treatments", treatService);
+			return "/pages/show-client-treatments.jsp";
 		} catch (ServiceException e) {
-			logger.error("An error occurred while uninstalling a treatment service ", e);
-			request.setAttribute("errorMessage", "An error occurred while uninstalling a treatment service ");
+			logger.error("An error occurred during the closing process", e);
+			request.setAttribute("errorMessage", "An error occurred during the closing process");
 			return "/pages/error-500.jsp";
+
 		}
-
 	}
-
 }
