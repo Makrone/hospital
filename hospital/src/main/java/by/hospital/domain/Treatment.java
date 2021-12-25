@@ -1,22 +1,22 @@
 package by.hospital.domain;
 
+import java.sql.Timestamp;
+
 public class Treatment extends Entity {
 
 	private Long id;
 	private Long clientId;
-	private long doctorId;
+	private Long doctorId;
 	private String medicalConclusion;
+	private Timestamp dateTime;
 
-	public Treatment() {
-		super();
-	}
-
-	public Treatment(Long id, Long clientId, long doctorId, String medicalConclusion) {
+	public Treatment(Long id, Long clientId, Long doctorId, String medicalConclusion, Timestamp dateTime) {
 		super();
 		this.id = id;
 		this.clientId = clientId;
 		this.doctorId = doctorId;
 		this.medicalConclusion = medicalConclusion;
+		this.dateTime = dateTime;
 	}
 
 	public Long getId() {
@@ -51,12 +51,29 @@ public class Treatment extends Entity {
 		this.medicalConclusion = medicalConclusion;
 	}
 
+	public Timestamp getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(Timestamp dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public void setDoctorId(Long doctorId) {
+		this.doctorId = doctorId;
+	}
+
+	public Treatment() {
+		super();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((clientId == null) ? 0 : clientId.hashCode());
-		result = prime * result + (int) (doctorId ^ (doctorId >>> 32));
+		result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
+		result = prime * result + ((doctorId == null) ? 0 : doctorId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((medicalConclusion == null) ? 0 : medicalConclusion.hashCode());
 		return result;
@@ -76,7 +93,15 @@ public class Treatment extends Entity {
 				return false;
 		} else if (!clientId.equals(other.clientId))
 			return false;
-		if (doctorId != other.doctorId)
+		if (dateTime == null) {
+			if (other.dateTime != null)
+				return false;
+		} else if (!dateTime.equals(other.dateTime))
+			return false;
+		if (doctorId == null) {
+			if (other.doctorId != null)
+				return false;
+		} else if (!doctorId.equals(other.doctorId))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -93,18 +118,8 @@ public class Treatment extends Entity {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Treatment [id=");
-		builder.append(id);
-		builder.append(", clientId=");
-		builder.append(clientId);
-		builder.append(", doctorId=");
-		builder.append(doctorId);
-		builder.append(", medicalConclusion=");
-		builder.append(medicalConclusion);
-		builder.append("]");
-		return builder.toString();
+		return "Treatment [id=" + id + ", clientId=" + clientId + ", doctorId=" + doctorId + ", medicalConclusion="
+				+ medicalConclusion + ", dateTime=" + dateTime + "]";
 	}
 
-	
 }

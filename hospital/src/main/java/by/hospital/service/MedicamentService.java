@@ -5,6 +5,8 @@ import java.util.List;
 import by.hospital.dao.IMedicamentDAO;
 import by.hospital.dao.impl.MedicamentDAOImpl;
 import by.hospital.domain.Medicament;
+import by.hospital.exception.DAOException;
+import by.hospital.exception.ServiceException;
 
 public class MedicamentService {
 	private IMedicamentDAO repository;
@@ -14,21 +16,52 @@ public class MedicamentService {
 		repository = new MedicamentDAOImpl();
 	}
 
-	public void create(Medicament medicament) {
-
-		repository.create(medicament);
+	public void create(Medicament medicament) throws ServiceException {
+		try {
+			repository.create(medicament);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
-	public Medicament findByName(String name) {
-		return repository.findByName(name);
+	public Medicament findByName(String name) throws ServiceException {
+		try {
+			return repository.findByName(name);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
-	public Boolean delete(Long id) {
-		return repository.delete(id);
+	public Boolean delete(Long id) throws ServiceException {
+		try {
+			return repository.delete(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
-	public List<Medicament> getAll() {
-		return repository.getAll();
+	public List<Medicament> getAll() throws ServiceException {
+		try {
+			return repository.getAll();
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+	}
+
+	public Medicament getById(Long id) throws ServiceException {
+		try {
+			return repository.get(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+	}
+
+	public void update(Medicament medicamentService) throws ServiceException {
+		try {
+			repository.update(medicamentService);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
 }

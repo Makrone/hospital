@@ -1,6 +1,5 @@
 package by.hospital.service;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +8,8 @@ import by.hospital.dao.IUserDAO;
 import by.hospital.dao.impl.UserDAOImpl;
 import by.hospital.domain.User;
 import by.hospital.domain.type.UserType;
+import by.hospital.exception.DAOException;
+import by.hospital.exception.ServiceException;
 
 public class UserService {
 
@@ -19,27 +20,62 @@ public class UserService {
 		repository = new UserDAOImpl();
 	}
 
-	public void create(User user) {
-		Date date = new Date();
-		user.setCreated(new Timestamp(date.getTime()));
-		repository.create(user);
+	public void create(User user) throws ServiceException {
+		try {
+			user.setCreated(new Timestamp(new Date().getTime()));
+			repository.create(user);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
-	public User findByUsername(String username) {
-		return repository.findByUsername(username);
+	public User findByUsername(String username) throws ServiceException {
+		try {
+			return repository.findByUsername(username);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
-	public User addMoney(BigDecimal money) {
-		return repository.addMoney(money);
+	public Boolean delete(Long id) throws ServiceException {
+		try {
+			return repository.delete(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
 
-	public List<User> getAll() {
-		return repository.getAll();
+	public List<User> getAll() throws ServiceException {
+		try {
+			return repository.getAll();
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
-	
-	public List<User> findByType(UserType type) { 
-		return repository.findByType(type);
+
+	public List<User> findByType(UserType type) throws ServiceException {
+		try {
+			return repository.findByType(type);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
 	}
-	
+
+	public User getById(Long id) throws ServiceException {
+		try {
+			return repository.get(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+	}
+
+	public void update(User user) throws ServiceException {
+		try {
+			user.setUpdated(new Timestamp(new Date().getTime()));
+			repository.update(user);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+	}
 
 }
