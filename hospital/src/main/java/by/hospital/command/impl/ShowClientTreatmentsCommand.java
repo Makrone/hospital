@@ -29,6 +29,7 @@ public class ShowClientTreatmentsCommand implements ICommand {
 		try {
 			Long clientId = Long.valueOf(request.getParameter("clientId"));
 			List<TreatmentDTO> treatService = treatmentService.findByClientId(clientId);
+			
 			request.setAttribute("treatments", treatService);
 
 			return "/pages/show-client-treatments.jsp";

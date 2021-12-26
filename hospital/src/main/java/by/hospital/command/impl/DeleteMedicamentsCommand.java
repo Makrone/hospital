@@ -36,6 +36,7 @@ public class DeleteMedicamentsCommand implements ICommand {
 			}
 			List<Medicament> medcicament = medicamentService.getAll();
 			request.setAttribute("medicaments", medcicament);
+			request.setAttribute("errorMessage", "Deleted");
 			return "/pages/medicaments.jsp";
 		} catch (ServiceException e) {
 			logger.error("An error occurred while uninstalling a medicament service ", e);

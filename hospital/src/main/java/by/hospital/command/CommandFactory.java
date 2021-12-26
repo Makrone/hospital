@@ -18,10 +18,12 @@ import by.hospital.command.impl.GoToEditMedicamentCommand;
 import by.hospital.command.impl.GoToEditServiceCommand;
 import by.hospital.command.impl.GoToMakeAppointment;
 import by.hospital.command.impl.GoToPageCommand;
+import by.hospital.command.impl.GoToProfileCommand;
 import by.hospital.command.impl.LoginCommand;
 import by.hospital.command.impl.LogoutCommand;
 import by.hospital.command.impl.RegistrationCommand;
 import by.hospital.command.impl.SaveMedicalConclusionCommand;
+import by.hospital.command.impl.ShowAllClientDoctorsCommand;
 import by.hospital.command.impl.ShowAllClientsCommand;
 import by.hospital.command.impl.ShowAllDoctorsCommand;
 import by.hospital.command.impl.ShowAllMedicamentsCommand;
@@ -52,6 +54,8 @@ public class CommandFactory {
 		commands.put("show-client-treatments", new ShowClientTreatmentsCommand());
 		commands.put("show-all-doctors", new ShowAllDoctorsCommand());
 		
+		commands.put("show-client-doctors", new ShowAllClientDoctorsCommand());
+		
 		commands.put("show-service-client", new ShowClientAllServicesCommand());
 
 		commands.put("add-medical-service", new AddMedicalServiceCommand());
@@ -75,6 +79,8 @@ public class CommandFactory {
 		commands.put("create-treatment", new CreateTreatmentCommand());
 		commands.put("check-on-patient", new CheckOnPatientCommand());
 		commands.put("save-medical-conclusion", new SaveMedicalConclusionCommand());
+		
+		commands.put("go-to-profile", new GoToProfileCommand());
 	}
 
 	public static ICommand getCommand(String action) {

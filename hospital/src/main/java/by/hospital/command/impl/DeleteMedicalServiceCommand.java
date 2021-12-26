@@ -36,6 +36,7 @@ public class DeleteMedicalServiceCommand implements ICommand {
 			}
 			List<MedicalService> service = medicalService.getAll();
 			request.setAttribute("services", service);
+			request.setAttribute("errorMessage", "Deleted");
 			return "/pages/service.jsp";
 		} catch (ServiceException e) {
 			logger.error("An error occurred while uninstalling a medical service ", e);

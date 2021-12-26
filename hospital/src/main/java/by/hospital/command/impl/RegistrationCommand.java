@@ -1,5 +1,8 @@
 package by.hospital.command.impl;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,7 +35,6 @@ public class RegistrationCommand implements ICommand {
 		super();
 		passwordEncoder = new BCryptPasswordEncoder();
 		userService = new UserService();
-
 	}
 
 	@Override

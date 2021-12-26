@@ -41,6 +41,7 @@ public class UpdateMedicamentCommand implements ICommand {
 
 			List<Medicament> medicaments = medicamentService.getAll();
 			request.setAttribute("medicaments", medicaments);
+			request.setAttribute("errorMessage", "Changed");
 			return "/pages/medicaments.jsp";
 
 		} catch (ServiceException e) {

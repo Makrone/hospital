@@ -43,6 +43,7 @@ public class UpdateMedicalServiceCommand implements ICommand {
 
 			List<MedicalService> service = medicalService.getAll();
 			request.setAttribute("services", service);
+			request.setAttribute("errorMessage", "Changed");
 			return "/pages/service.jsp";
 		} catch (ServiceException e) {
 			logger.error("There was an error during the update of the medical service", e);

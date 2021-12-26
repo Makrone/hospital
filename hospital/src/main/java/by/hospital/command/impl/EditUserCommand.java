@@ -55,6 +55,7 @@ public class EditUserCommand implements ICommand {
 
 			List<User> users = userService.findByType(UserType.CLIENT);
 			request.setAttribute("users", users);
+			request.setAttribute("errorMessage", "Changed");
 			return "/pages/show-clients.jsp";
 		} catch (ServiceException e) {
 			logger.error("An error occurred during parameter changes", e);

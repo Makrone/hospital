@@ -32,7 +32,7 @@ public class DeleteClientCommand implements ICommand {
 				request.setAttribute("ErrorMessage", "User id missed");
 			} else {
 				userService.delete(Long.valueOf(serviceId));
-
+				request.setAttribute("errorMessage", "Deleted");
 			}
 			List<User> user = userService.getAll();
 			request.setAttribute("users", user);
