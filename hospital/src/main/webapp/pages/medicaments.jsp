@@ -17,8 +17,27 @@
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
-	</div>
+			<div class="footer">
+				<form class="navbar-form pull-left" action="main" method="POST">
+					<input type="hidden" name="action" value="logout" />
+					<div class="btnfirst">
+						<button class="btn btn-danger btn-sm" style="float: right;"
+							type="submit" name="logout">Log out</button>
+					</div>
+				</form>
+				<form class="navbar-form pull-right" action="main" method="POST">
+					<input type="hidden" name="action" value="go-to-profile" />
+					<div class="btnfirst">
+						<button class="btn btn-primary btn-sm mb-2" style="float: right;"
+							type="submit" name="go-to-profile">Profile</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	<hr>
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-success">${errorMessage}</div>
+	</c:if>
 
 	<h5>An organization that concentrates all kinds of modern medical
 		diagnostic, specialized medical care and rehabilitation technologies.
@@ -27,38 +46,40 @@
 
 	<div class="container">
 		<c:forEach var="medicament" items="${medicaments}">
-		<div class="border-bottom border-info">
-			<div class="row">
-				<div class="col-md-5">
-					<img
-						src="https://thumbs.dreamstime.com/b/набор-значков-medicament-символы-фармацевтических-и-обработки-медицинские-176848088.jpg"
-						width="190" height="130" alt="Bootstrap Blocks Owl Carousel 1"
-						alt="Bootstrap Blocks Owl Carousel 1" />
-				</div>
-				<div class="col-md-5">
-					<div class="category">Name: <b>${medicament.name}</b></div>
-					<p class="post-title">Description: ${medicament.description}</p>
-					<p class="post-description">Cost: ${medicament.cost}$</p>
-				
-			</div>
-			<div class="col-md-2">
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="delete-medicaments" /> <input
-						type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-danger btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Delete service
-					</button>
-				</form>
+			<div class="border-bottom border-info">
+				<div class="row">
+					<div class="col-md-5">
+						<img
+							src="https://thumbs.dreamstime.com/b/набор-значков-medicament-символы-фармацевтических-и-обработки-медицинские-176848088.jpg"
+							width="190" height="130" alt="Bootstrap Blocks Owl Carousel 1"
+							alt="Bootstrap Blocks Owl Carousel 1" />
+					</div>
+					<div class="col-md-5">
+						<div class="category">
+							Name: <b>${medicament.name}</b>
+						</div>
+						<p class="post-title">Description: ${medicament.description}</p>
+						<p class="post-description">Cost: ${medicament.cost}$</p>
 
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="go-to-edit-medicament" />
-					<input type="hidden" name="medicamentId" value="${medicament.id}" />
-					<button class="btn btn-primary btn-sm mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Edit medicament
-					</button>
-				</form>
-			</div>
-			</div>
+					</div>
+					<div class="col-md-2">
+						<form class="navbar-form pull-right" action="main" method="POST">
+							<input type="hidden" name="action" value="delete-medicaments" />
+							<input type="hidden" name="medicamentId" value="${medicament.id}" />
+							<button class="btn btn-danger btn-sm mb-2" type="submit">
+								<i class="glyphicon glyphicon-star"></i> Delete service
+							</button>
+						</form>
+
+						<form class="navbar-form pull-right" action="main" method="POST">
+							<input type="hidden" name="action" value="go-to-edit-medicament" />
+							<input type="hidden" name="medicamentId" value="${medicament.id}" />
+							<button class="btn btn-primary btn-sm mb-2" type="submit">
+								<i class="glyphicon glyphicon-star"></i> Edit medicament
+							</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</c:forEach>
 	</div>

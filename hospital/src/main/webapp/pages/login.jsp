@@ -17,8 +17,8 @@
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
 	</div>
-	<hr>
-	<c:if test="${not empty errorMessage }">
+	<hr />
+	<c:if test="${not empty errorMessage}">
 		<div class="alert alert-danger">${errorMessage}</div>
 	</c:if>
 
@@ -49,7 +49,8 @@
 		<div class="footer">
 			<input type="hidden" name="action" value="login" />
 			<div class="btnfirst">
-				<button class="btn btn-primary btn-sm mb-2" type="submit" name="login">Submit</button>
+				<button class="btn btn-primary btn-sm mb-2" type="submit"
+					name="login">Submit</button>
 				<button class="btn btn-primary btn-sm mb-2" type="button"
 					onClick='location.href="http://localhost:8080/hospital"'>Return</button>
 			</div>

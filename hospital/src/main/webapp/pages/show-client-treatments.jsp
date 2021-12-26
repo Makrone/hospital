@@ -19,6 +19,22 @@
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
 	</div>
+	<div class="footer">
+			<form class="navbar-form pull-left" action="main" method="POST">
+				<input type="hidden" name="action" value="logout" />
+				<div class="btnfirst">
+					<button class="btn btn-danger btn-sm" style="float: right;"
+						type="submit" name="logout">Log out</button>
+				</div>
+			</form>
+			<form class="navbar-form pull-right" action="main" method="POST">
+				<input type="hidden" name="action" value="go-to-profile" />
+				<div class="btnfirst">
+					<button class="btn btn-primary btn-sm mb-2" style="float: right;"
+						type="submit" name="go-to-profile">Profile</button>
+				</div>
+			</form>
+		</div>
 	<hr>
 
 	<h5>An organization that concentrates all kinds of modern medical
@@ -38,10 +54,7 @@
 					</div>
 					<div class="col-md-3"> <b>Issued to the client:</b>
 						${treatment.client.firstName} ${treatment.client.lastName}</div>
-					<div class="col-md-3">
-						<h4 class="post-title">${treatment.doctor.firstName}</h4>
-						<p class="post-description">${treatment.doctor.lastName}</p>
-					</div>
+
 					<div class="col-md-4">
 						<form class="navbar-form pull-right" action="main" method="POST">
 							<input type="hidden" name="action" value="cancel-treatment" /> <input

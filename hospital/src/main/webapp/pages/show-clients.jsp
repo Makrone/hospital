@@ -17,8 +17,26 @@
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
+		<form class="navbar-form pull-left" action="main" method="POST">
+			<input type="hidden" name="action" value="logout" />
+			<div class="btnfirst">
+				<button class="btn btn-danger btn-sm" style="float: right;"
+					type="submit" name="logout">Log out</button>
+			</div>
+		</form>
+		<form class="navbar-form pull-right" action="main" method="POST">
+			<input type="hidden" name="action" value="go-to-profile" />
+			<div class="btnfirst">
+				<button class="btn btn-primary btn-sm mb-2" style="float: right;"
+					type="submit" name="go-to-profile">Profile</button>
+			</div>
+		</form>
 	</div>
+
 	<hr>
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-success">${errorMessage}</div>
+	</c:if>
 	<div class="container">
 		<c:forEach var="user" items="${users}">
 			<div class="border-bottom border-info">
@@ -41,7 +59,7 @@
 						<form class="navbar-form pull-right" action="main" method="POST">
 							<input type="hidden" name="action" value="delete-client" /> <input
 								type="hidden" name="id" value="${user.id}" />
-							<button class="btn btn-primary" type="submit">
+							<button class="btn btn-danger" type="submit">
 								<i class="glyphicon glyphicon-star"></i> Delete
 							</button>
 						</form>

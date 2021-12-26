@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen"
-href="${pageContext.request.contextPath}/css/general.css" />
+	href="${pageContext.request.contextPath}/css/general.css" />
 </head>
 <body>
 	<div class="container">
@@ -19,6 +19,9 @@ href="${pageContext.request.contextPath}/css/general.css" />
 			height="50"> </a>
 	</div>
 	<hr>
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-danger">${errorMessage}</div>
+	</c:if>
 
 	<h4>An organization that concentrates all kinds of modern medical
 		diagnostic, specialized medical care and rehabilitation technologies.
@@ -36,7 +39,8 @@ href="${pageContext.request.contextPath}/css/general.css" />
 								<img
 									src="https://www.lode.by/images/cache/32a/f04d6bb525c99168da14249b1861d410.jpg"
 									alt="Bootstrap Blocks Owl Carousel 1" />
-								<div class="category">Выписано клиенту: ${treatment.clientId}</div>
+								<div class="category">Выписано клиенту:
+									${treatment.clientId}</div>
 							</div>
 							<div class="post-review">
 								<h3 class="post-title">${treatment.doctorId}</h3>

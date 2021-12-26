@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,25 +15,28 @@
 	href="${pageContext.request.contextPath}/css/timeline.css" />
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
 	</div>
-		<hr />
-				<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-					<!-- Links -->
-					<h2 class="text-uppercase fw-bold mb-4">Contact</h2>
-					<p>
-						<i class="fas fa-home me-3"></i> Minsk, Belarus 220039
-					</p>
-					<p>
-						<i class="fas fa-envelope me-3"></i> infomlux.by@gmail.com
-					</p>
-					<p>
-						<i class="fas fa-phone me-3"></i> + 375 29 111 28 28
-					</p>
-				</div>
+	<hr />
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-success">${errorMessage}</div>
+	</c:if>
+	<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+		<!-- Links -->
+		<h2 class="text-uppercase fw-bold mb-4">Contact</h2>
+		<p>
+			<i class="fas fa-home me-3"></i> Minsk, Belarus 220039
+		</p>
+		<p>
+			<i class="fas fa-envelope me-3"></i> infomlux.by@gmail.com
+		</p>
+		<p>
+			<i class="fas fa-phone me-3"></i> + 375 29 111 28 28
+		</p>
+	</div>
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">

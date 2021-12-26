@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,20 +13,40 @@
 	href="${pageContext.request.contextPath}/css/general.css" />
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
-<hr />
+		<div class="footer">
+			<form class="navbar-form pull-left" action="main" method="POST">
+				<input type="hidden" name="action" value="logout" />
+				<div class="btnfirst">
+					<button class="btn btn-danger btn-sm" style="float: right;"
+						type="submit" name="logout">Log out</button>
+				</div>
+			</form>
+			<form class="navbar-form pull-right" action="main" method="POST">
+				<input type="hidden" name="action" value="go-to-profile" />
+				<div class="btnfirst">
+					<button class="btn btn-primary btn-sm mb-2" style="float: right;"
+						type="submit" name="go-to-profile">Profile</button>
+				</div>
+			</form>
+		</div>
+		<hr />
+		<c:if test="${not empty errorMessage}">
+			<div class="alert alert-success">${errorMessage}</div>
+		</c:if>
+
 		<form class="form register-form" method="POST" action="main">
-				<h2>
-					<a>Create new Treatment</a>
-				</h2>
+			<h2>
+				<a>Create new Treatment</a>
+			</h2>
 			<div class="body">
 				<!--  Name  -->
 				<div class="control-group">
-					<label for="name"> Client name </label> <input type="text" id="name"
-						required name="name" data-validation="custom"
+					<label for="name"> Client name </label> <input type="text"
+						id="name" required name="name" data-validation="custom"
 						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
 						data-validation-help="Name should start with a letter and consist of 1-20 characters"
 						placeholder="Client name" />
@@ -40,8 +62,8 @@
 				</div>
 				<!--  Cost  -->
 				<div class="control-group">
-					<label for="cost"> Medical conclusion </label> <input type="text" id="cost"
-						required name="cost" data-validation="custom"
+					<label for="cost"> Medical conclusion </label> <input type="text"
+						id="cost" required name="cost" data-validation="custom"
 						data-validation-regexp="{1,99999999}$"
 						data-validation-help="Cost should start with a letter and consist of 1-20 characters"
 						placeholder="Medical conclusion" />
@@ -50,9 +72,8 @@
 			<div class="footer">
 				<input type="hidden" name="action" value="add-treatment" />
 				<div class="btnfirst">
-					<button class="btn btn-primary btn-sm mb-2" type="submit" name="treatment">Submit</button>
-					<button class="btn btn-primary btn-sm mb-2" type="button"
-						onClick='location.href="http://localhost:8080/hospital"'>Return</button>
+					<button class="btn btn-primary btn-sm mb-2" type="submit"
+						name="treatment">Submit</button>
 				</div>
 			</div>
 		</form>

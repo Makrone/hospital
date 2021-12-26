@@ -13,13 +13,30 @@
 	href="${pageContext.request.contextPath}/css/general.css" />
 </head>
 <body>
-
-
 	<div class="container">
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
+		<div class="footer">
+			<form class="navbar-form pull-left" action="main" method="POST">
+				<input type="hidden" name="action" value="logout" />
+				<div class="btnfirst">
+					<button class="btn btn-danger btn-sm" style="float: right;"
+						type="submit" name="logout">Log out</button>
+				</div>
+			</form>
+			<form class="navbar-form pull-right" action="main" method="POST">
+				<input type="hidden" name="action" value="go-to-profile" />
+				<div class="btnfirst">
+					<button class="btn btn-primary btn-sm mb-2" style="float: right;"
+						type="submit" name="go-to-profile">Profile</button>
+				</div>
+			</form>
+		</div>
 		<hr />
+		<c:if test="${not empty errorMessage}">
+			<div class="alert alert-success">${errorMessage}</div>
+		</c:if>
 
 		<form class="form register-form" method="POST" action="main">
 			<h2>
@@ -67,8 +84,6 @@
 					<div class="btnfirst">
 						<button class="btn btn-primary btn-sm mb-1" type="submit"
 							name="registration">Save</button>
-						<button class="btn btn-primary btn-sm mb-1" type="button"
-							onClick='location.href="http://localhost:8080/hospital"'>Return</button>
 					</div>
 				</div>
 			</div>

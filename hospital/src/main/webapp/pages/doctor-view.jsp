@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,44 +15,46 @@
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
-</div>
-		<hr />
+	</div>
+	<hr />
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-success">${errorMessage}</div>
+	</c:if>
 
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<header class="panel-title">
-					<div class="text-center">
-						<strong>Doctor office </strong>
-					</div>
-				</header>
-			</div>
-			<div class="panel-body">
-				<div class="text-center" id="author">
-					<img src="https://cropas.by/wp-content/uploads/2015/05/admin.jpg"
-						width="150" height="150">
-					<h2>Welcome, ${user.firstName}!</h2>
-
-					<div class="footer">
-						<form class="navbar-form pull-right" action="main" method="POST">
-							<input type="hidden" name="action" value="logout" />
-							<div class="btnfirst">
-								<button class="btn btn-danger mb-2" type="submit" name="logout">Log
-									out</button>
-							</div>
-						</form>
-					</div>
-				</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<header class="panel-title">
 				<div class="text-center">
-					<h3>Your information :</h3>
+					<strong>Doctor office </strong>
+				</div>
+			</header>
+		</div>
+		<div class="panel-body">
+			<div class="text-center" id="author">
+				<img src="https://cropas.by/wp-content/uploads/2015/05/admin.jpg"
+					width="150" height="150">
+				<h2>Welcome, ${user.firstName}!</h2>
 
-					<p>First name - ${user.firstName}</p>
-					<p>Last name - ${user.lastName}</p>
-					<p>Phone - ${user.phone}</p>
-					<p>Email - ${user.email}</p>
-					<p>Created - ${user.created}</p>
+				<div class="footer">
+					<form class="navbar-form pull-right" action="main" method="POST">
+						<input type="hidden" name="action" value="logout" />
+						<div class="btnfirst">
+							<button class="btn btn-danger mb-2" type="submit" name="logout">Log
+								out</button>
+						</div>
+					</form>
 				</div>
 			</div>
+			<div class="text-center">
+				<h3>Your information :</h3>
+
+				<p>First name - ${user.firstName}</p>
+				<p>Last name - ${user.lastName}</p>
+				<p>Phone - ${user.phone}</p>
+				<p>Email - ${user.email}</p>
+				<p>Created - ${user.created}</p>
+			</div>
+		</div>
 
 		<div class="btn-group pull-right">
 			<form class="navbar-form pull-right" action="main" method="POST">
@@ -62,11 +66,6 @@
 		</div>
 
 		<div class="footer">
-			<input type="hidden" name="action" value="addTreatment" />
-			<div class="btnfirst">
-				<button class="btn btn-primary mb-2" type="submit" name="treatment">Add
-					Treatment</button>
-			</div>
 			<div class="btn-group pull-right">
 				<form class="navbar-form pull-right" action="main" method="POST">
 					<input type="hidden" name="action" value="show-all-medicaments" />
@@ -75,17 +74,18 @@
 					</button>
 				</form>
 			</div>
-			
-			<div class="btn-group pull-right">
+
+			<div>
 				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="show-doctor-treatments" /> <input
-						type="hidden" name="doctorId" value="${user.id}" />
+					<input type="hidden" name="action" value="show-doctor-treatments" />
+					<input type="hidden" name="doctorId" value="${user.id}" />
 					<button class="btn btn-primary mb-2" type="submit">
 						<i class="glyphicon glyphicon-star"></i> Show My Treatments
 					</button>
 				</form>
 			</div>
 		</div>
+	</div>
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">

@@ -18,7 +18,7 @@
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
 	</div>
-	<div class="footer">
+<div class="footer">
 			<form class="navbar-form pull-left" action="main" method="POST">
 				<input type="hidden" name="action" value="logout" />
 				<div class="btnfirst">
@@ -34,10 +34,10 @@
 				</div>
 			</form>
 		</div>
-	<hr>
 	<c:if test="${not empty errorMessage}">
 		<div class="alert alert-danger">${errorMessage}</div>
 	</c:if>
+	<hr>
 	<div class="container">
 		<c:forEach var="user" items="${users}">
 			<div class="border-bottom border-info">
@@ -58,6 +58,16 @@
 										<div class="slide-value">${user.email}</div>
 
 									</div>
+								</div>
+								<div class="user-actions">
+									<form class="navbar-form pull-right" action="main"
+										method="POST">
+										<input type="hidden" name="action"
+											value="go-to-make-appointment" /> <input type="hidden"
+											name="doctorId" value="${user.id}" />
+										<button class="btn btn-primary" type="submit"
+											name="add-medicament">Make an appointment</button>
+									</form>
 								</div>
 							</div>
 						</div>

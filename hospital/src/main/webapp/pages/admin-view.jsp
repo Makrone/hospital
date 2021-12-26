@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +18,9 @@
 			height="50"> </a>
 
 		<hr />
-
-
+		<c:if test="${not empty errorMessage}">
+			<div class="alert alert-success">${errorMessage}</div>
+		</c:if>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<header class="panel-title">
@@ -36,8 +39,8 @@
 						<form class="navbar-form pull-right" action="main" method="POST">
 							<input type="hidden" name="action" value="logout" />
 							<div class="btnfirst">
-								<button class="btn btn-danger btn-sm" type="submit" name="logout">Log
-									out</button>
+								<button class="btn btn-danger btn-sm" type="submit"
+									name="logout">Log out</button>
 							</div>
 						</form>
 					</div>
@@ -55,8 +58,8 @@
 		<form class="navbar-form pull-right" action="main" method="POST">
 			<input type="hidden" name="action" value="show-all-clients" />
 			<div class="btnfirst">
-				<button class="btn btn-primary btn-sm mb-2"  type="submit" name="show-all-clients">Show
-					client</button>
+				<button class="btn btn-primary btn-sm mb-2" type="submit"
+					name="show-all-clients">Show client</button>
 			</div>
 		</form>
 
@@ -76,21 +79,12 @@
 					name="add-medical-services">Add medical service</button>
 			</div>
 		</form>
-
-		<form class="navbar-form pull-right" action="main" method="POST">
-			<input type="hidden" name="action" value="show-all-treatment" />
-			<div class="btnfirst">
-				<button class="btn btn-primary btn-sm mb-2" type="submit"
-					name="show-all-treatment">Show all treatments</button>
-			</div>
-		</form>
-
 		<form class="navbar-form pull-right" action="main" method="POST">
 			<input type="hidden" name="action" value="go-to-page" /> <input
 				type="hidden" name="page" value="/pages/create-new-treatment.jsp">
 			<div class="btnfirst">
-				<button class="btn btn-primary btn-sm mb-2" type="submit" name="add-treatment">Add
-					treatment</button>
+				<button class="btn btn-primary btn-sm mb-2" type="submit"
+					name="add-treatment">Add treatment</button>
 			</div>
 		</form>
 
@@ -106,8 +100,8 @@
 			<input type="hidden" name="action" value="go-to-page" /> <input
 				type="hidden" name="page" value="/pages/create-new-medicament.jsp">
 			<div class="btnfirst">
-				<button class="btn btn-primary btn-sm mb-2" type="submit" name="add-medicament">Add
-					medicament</button>
+				<button class="btn btn-primary btn-sm mb-2" type="submit"
+					name="add-medicament">Add medicament</button>
 			</div>
 		</form>
 

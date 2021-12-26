@@ -17,8 +17,27 @@
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
+	<div class="footer">
+		<form class="navbar-form pull-left" action="main" method="POST">
+			<input type="hidden" name="action" value="logout" />
+			<div class="btnfirst">
+				<button class="btn btn-danger btn-sm" style="float: right;"
+					type="submit" name="logout">Log out</button>
+			</div>
+		</form>
+		<form class="navbar-form pull-right" action="main" method="POST">
+			<input type="hidden" name="action" value="go-to-profile" />
+			<div class="btnfirst">
+				<button class="btn btn-primary btn-sm mb-2" style="float: right;"
+					type="submit" name="go-to-profile">Profile</button>
+			</div>
+		</form>
 	</div>
-	<hr>
+	</div>
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-success">${errorMessage}</div>
+	</c:if>
+<hr>
 	<h5>Diagnostics is an integral part of modern medicine, without
 		which it is impossible to provide complete medical care. Thanks to
 		modern equipment and reagents, laboratory diagnostics makes it
@@ -44,7 +63,9 @@
 							width="190" height="130" alt="Bootstrap Blocks Owl Carousel 1" />
 					</div>
 					<div class="col-md-5">
-						<div class="category">Name: <b>${service.name}</b></div>
+						<div class="category">
+							Name: <b>${service.name}</b>
+						</div>
 						<p class="post-title">Description: ${service.description}</p>
 						<p class="post-description">Cost: ${service.cost}$</p>
 					</div>

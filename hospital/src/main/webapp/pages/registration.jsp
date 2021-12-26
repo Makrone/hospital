@@ -1,4 +1,7 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +19,15 @@
 		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
 			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
 			height="50"> </a>
-			<hr />
+		<hr />
+		<c:if test="${not empty errorMessage}">
+			<div class="alert alert-danger">${errorMessage}</div>
+		</c:if>
 
 		<form class="form register-form" method="POST" action="main">
-				<h2>
-					<a>Registration</a>
-				</h2>
+			<h2>
+				<a>Registration</a>
+			</h2>
 			<div class="body">
 				<!--  First name validation -->
 				<div class="control-group">
@@ -68,9 +74,11 @@
 				<div class="control-group">
 					<label for="phone"> Phone </label> <input type="text" id="phone"
 						required name="phone" data-validation="custom"
-						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{7,20}$"
+						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{11,15}$"
 						data-validation-help="Phone should start with a letter and consist of 1-20 characters"
-						placeholder="Phone " />
+						placeholder="Phone" required
+						pattern="^\+?[\s\-\(\)0-9]{11,15}$" 
+						title="The phone number must be 11-15 characters in free format"/>
 				</div>
 				<!--  Email validation -->
 				<div class="control-group">
@@ -78,7 +86,9 @@
 						required name="email" data-validation="custom"
 						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
 						data-validation-help="Email should start with a letter and consist of 1-20 characters"
-						placeholder="Email" />
+						placeholder="Email" required pattern="[^ @]*@[^ @]*"
+						title="Email should start with a letter and consist of 1-20 characters example@email.com" />
+
 				</div>
 
 				<!--  Login validation -->
@@ -103,8 +113,10 @@
 			<div class="footer">
 				<input type="hidden" name="action" value="registration" />
 				<div class="btnfirst">
-					 <button class="btn btn-primary btn-sm mb-1" type="submit" name="registration">Submit</button>
-					 <button class="btn btn-primary btn-sm mb-1" type="button" onClick='location.href="http://localhost:8080/hospital"'>Return</button>
+					<button class="btn btn-primary btn-sm mb-1" type="submit"
+						name="registration">Submit</button>
+					<button class="btn btn-primary btn-sm mb-1" type="button"
+						onClick='location.href="http://localhost:8080/hospital"'>Return</button>
 				</div>
 			</div>
 
