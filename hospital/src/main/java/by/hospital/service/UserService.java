@@ -1,5 +1,6 @@
 package by.hospital.service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -78,4 +79,17 @@ public class UserService {
 		}
 	}
 
+	public BigDecimal pay(Long userId, BigDecimal money) throws ServiceException {
+		try {
+			User user = repository.get(userId);
+			BigDecimal userMoney = user.getMoney();
+			BigDecimal total = userMoney.subtract(money);
+			user.setMoney(total);
+			repository.update(user);
+			return total;
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+
+	}
 }

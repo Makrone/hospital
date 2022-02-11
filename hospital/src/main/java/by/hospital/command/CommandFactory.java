@@ -18,6 +18,7 @@ import by.hospital.command.impl.GoToEditMedicamentCommand;
 import by.hospital.command.impl.GoToEditServiceCommand;
 import by.hospital.command.impl.GoToMakeAppointment;
 import by.hospital.command.impl.GoToPageCommand;
+import by.hospital.command.impl.GoToPaymentSuccessCommand;
 import by.hospital.command.impl.GoToProfileCommand;
 import by.hospital.command.impl.LoginCommand;
 import by.hospital.command.impl.LogoutCommand;
@@ -81,6 +82,8 @@ public class CommandFactory {
 		commands.put("save-medical-conclusion", new SaveMedicalConclusionCommand());
 		
 		commands.put("go-to-profile", new GoToProfileCommand());
+		
+		commands.put("payment-success", new GoToPaymentSuccessCommand());
 	}
 
 	public static ICommand getCommand(String action) {

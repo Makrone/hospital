@@ -20,13 +20,15 @@ public class User extends Entity {
 	private String email;
 	private Timestamp created;
 	private Timestamp updated;
+	private Byte stats;
 
 	public User() {
 		super();
 	}
 
 	public User(Long id, String username, String password, UserType type, String firstName, String lastName,
-			BigDecimal money, Gender gender, String phone, String email, Timestamp created, Timestamp updated) {
+			BigDecimal money, Gender gender, String phone, String email, Timestamp created, Timestamp updated,
+			Byte stats) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -40,6 +42,7 @@ public class User extends Entity {
 		this.email = email;
 		this.created = created;
 		this.updated = updated;
+		this.stats = stats;
 	}
 
 	public Long getId() {
@@ -138,6 +141,14 @@ public class User extends Entity {
 		this.updated = updated;
 	}
 
+	public Byte getStats() {
+		return stats;
+	}
+
+	public void setStats(Byte stats) {
+		this.stats = stats;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -146,11 +157,12 @@ public class User extends Entity {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((money == null) ? 0 : money.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((stats == null) ? 0 : stats.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((updated == null) ? 0 : updated.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -181,12 +193,12 @@ public class User extends Entity {
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (gender == null) {
-			if (other.gender != null)
-				return false;
-		} else if (!gender.equals(other.gender))
+		if (gender != other.gender)
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
@@ -207,6 +219,11 @@ public class User extends Entity {
 			if (other.phone != null)
 				return false;
 		} else if (!phone.equals(other.phone))
+			return false;
+		if (stats == null) {
+			if (other.stats != null)
+				return false;
+		} else if (!stats.equals(other.stats))
 			return false;
 		if (type != other.type)
 			return false;
@@ -250,6 +267,8 @@ public class User extends Entity {
 		builder.append(created);
 		builder.append(", updated=");
 		builder.append(updated);
+		builder.append(", stats=");
+		builder.append(stats);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -26,9 +26,10 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 			+ " values(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String FIND_USER_BY_USERNAME = "SELECT * FROM epam.users WHERE username = ?";
 	private static final String FIND_BY_TYPE = "SELECT * FROM epam.users WHERE type = ?";
+	private static final String UPDATE_MONEY_USER_BY_ID = "UPDATE epam.users SET money=? WHERE ID=?";
 
 	@Override
-	public Long create(User entity) throws DAOException{
+	public Long create(User entity) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(CREATED_USER, Statement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setString(1, entity.getFirstName());
@@ -53,7 +54,7 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			throw new DAOException("Create error by User",e);
+			throw new DAOException("Create error by User", e);
 		} finally {
 			releaseConnection(c);
 		}
@@ -61,7 +62,7 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 	}
 
 	@Override
-	public Long update(User entity) throws DAOException{
+	public Long update(User entity) throws DAOException {
 
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(UPDATED_USER_BY_ID)) {
@@ -83,18 +84,18 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 			}
 			return entity.getId();
 		} catch (SQLException e) {
-			throw new DAOException("Update error by User",e);
+			throw new DAOException("Update error by User", e);
 		}
 	}
 
 	@Override
-	public Boolean delete(Long id) throws DAOException{
+	public Boolean delete(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(DELETE_USER_BY_ID)) {
 			preparedStatement.setLong(1, id);
 			return preparedStatement.executeUpdate() > 0;
 		} catch (SQLException e) {
-			throw new DAOException("Delete error by User",e);
+			throw new DAOException("Delete error by User", e);
 		} finally {
 			releaseConnection(c);
 		}
@@ -102,7 +103,7 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 	}
 
 	@Override
-	public User get(Long id) throws DAOException{
+	public User get(Long id) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(SELECT_USER_BY_ID)) {
 			preparedStatement.setLong(1, id);
@@ -111,7 +112,7 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 				return populateUser(resultSet);
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Get error by User",e);
+			throw new DAOException("Get error by User", e);
 		} finally {
 			releaseConnection(c);
 		}
@@ -120,7 +121,7 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 	}
 
 	@Override
-	public User findByUsername(String username) throws DAOException{
+	public User findByUsername(String username) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(FIND_USER_BY_USERNAME)) {
 			preparedStatement.setString(1, username);
@@ -129,7 +130,7 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 				return populateUser(resultSet);
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Find username error by User",e);
+			throw new DAOException("Find username error by User", e);
 		} finally {
 			releaseConnection(c);
 		}
@@ -138,21 +139,35 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 	}
 
 	@Override
-	public User addMoney(BigDecimal money) throws DAOException{
+	public User addMoney(BigDecimal money) throws DAOException {
 		Connection c = getConnection();
 		try (PreparedStatement preparedStatement = c.prepareStatement(CREATED_USER)) {
 			preparedStatement.setBigDecimal(1, money);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			return populateUser(resultSet);
 		} catch (SQLException e) {
-			throw new DAOException("Add money error by User",e);
+			throw new DAOException("Add money error by User", e);
 		} finally {
 			releaseConnection(c);
 		}
 	}
 
 	@Override
-	public List<User> getAll() throws DAOException{
+	public User dellMoney(BigDecimal money) throws DAOException {
+		Connection c = getConnection();
+		try (PreparedStatement preparedStatement = c.prepareStatement(UPDATE_MONEY_USER_BY_ID)) {
+			preparedStatement.setBigDecimal(1, money);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			return populateUser(resultSet);
+		} catch (SQLException e) {
+			throw new DAOException("Dell money error by User", e);
+		} finally {
+			releaseConnection(c);
+		}
+	}
+
+	@Override
+	public List<User> getAll() throws DAOException {
 		Connection c = getConnection();
 		List<User> users = new ArrayList<>();
 
@@ -162,15 +177,15 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 				users.add(populateUser(resultSet));
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Get all error by User",e);
+			throw new DAOException("Get all error by User", e);
 		} finally {
 			releaseConnection(c);
-		}	
+		}
 		return users;
 	}
 
 	@Override
-	public List<User> findByType(UserType type) throws DAOException{
+	public List<User> findByType(UserType type) throws DAOException {
 		Connection c = getConnection();
 		List<User> users = new ArrayList<>();
 		try (PreparedStatement preparedStatement = c.prepareStatement(FIND_BY_TYPE)) {
@@ -180,10 +195,10 @@ public class UserDAOImpl extends EntityDAO<User> implements IUserDAO {
 				users.add(populateUser(resultSet));
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Find type error by User",e);
+			throw new DAOException("Find type error by User", e);
 		}
 		releaseConnection(c);
-		
+
 		return users;
 	}
 

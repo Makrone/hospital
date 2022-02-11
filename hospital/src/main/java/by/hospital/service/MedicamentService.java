@@ -1,5 +1,6 @@
 package by.hospital.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import by.hospital.dao.IMedicamentDAO;
@@ -49,6 +50,22 @@ public class MedicamentService {
 	}
 
 	public Medicament getById(Long id) throws ServiceException {
+		try {
+			return repository.get(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+	}
+
+	public Medicament getCost(Long cost) throws ServiceException {
+		try {
+			return repository.get(cost);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage(), e);
+		}
+	}
+
+	public Medicament get(Long id) throws ServiceException {
 		try {
 			return repository.get(id);
 		} catch (DAOException e) {

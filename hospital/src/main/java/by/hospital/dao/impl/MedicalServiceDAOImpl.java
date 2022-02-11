@@ -38,7 +38,7 @@ public class MedicalServiceDAOImpl extends EntityDAO<MedicalService> implements 
 
 			}
 			return entity.getId();
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			throw new DAOException("Create error by MedicalService", e);
 		} finally {
 			releaseConnection(c);

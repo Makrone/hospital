@@ -13,5 +13,7 @@ public interface IUserDAO extends IEntityDAO<User>{
 
 	User addMoney(BigDecimal money) throws DAOException;
 	
+	User dellMoney(BigDecimal money) throws DAOException;
+	
 	List<User> findByType(UserType type) throws DAOException;
 }

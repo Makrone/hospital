@@ -1,5 +1,9 @@
 package by.hospital.command.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +25,6 @@ import by.hospital.service.RecipeService;
 import by.hospital.service.TreatmentService;
 
 public class ShowClientConclusionCommand implements ICommand {
-
 	private TreatmentService treatmentService;
 	private RecipeService recepiService;
 	private MedicalAssignmentService medicalAsignmentService;
@@ -48,9 +51,17 @@ public class ShowClientConclusionCommand implements ICommand {
 			Medicament medicament = medicamentService.getById(recipe.getMedicamentId());
 			MedicalService medService = medicalService.getById(medAssignment.getMedicalServiceId());
 
+			BigDecimal total1 = medicament.getCost();
+			BigDecimal total2 = medService.getCost();
+			List<BigDecimal> numbers = new ArrayList<>();
+			numbers.add(total1);
+			numbers.add(total2);
+			BigDecimal total = numbers.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+
 			request.setAttribute("treatment", treatment);
 			request.setAttribute("medicament", medicament);
 			request.setAttribute("medicalService", medService);
+			request.setAttribute("total", total);
 			return "/pages/show-conclusion.jsp";
 		} catch (ServiceException e) {
 			logger.error("Произошла ошибка во время отображения заключения ", e);
@@ -58,5 +69,4 @@ public class ShowClientConclusionCommand implements ICommand {
 			return "/pages/error-500.jsp";
 		}
 	}
-
 }
