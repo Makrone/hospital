@@ -9,83 +9,167 @@
 <title>Doctor office</title>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/general.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/timeline.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/profile.css" />
 </head>
 <body>
-	<div class="container">
-		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
-			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
-			height="50"> </a>
-	</div>
-	<hr />
-	<c:if test="${not empty errorMessage}">
-		<div class="alert alert-success">${errorMessage}</div>
-	</c:if>
-
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<header class="panel-title">
-				<div class="text-center">
-					<strong>Doctor office </strong>
+	<!--================Header Menu Area =================-->
+	<nav>
+		<div class="navbar navbar-expand-lg navbar-light bg-light"
+			style="background-color: #00CED1;">
+			<div class="col-md-6">
+				<div class="collapse-navbar">
+					<div class="float-left">
+						<a class="navbar-logo"><img src="img/logo.png" width="150"
+							height="50"> </a>
+					</div>
 				</div>
-			</header>
+			</div>
+			<div class="col-md-4">
+				<ul class="navbar-nav">
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/index.jsp">Main</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/about.jsp">About
+							us</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
+				</ul>
+			</div>
 		</div>
-		<div class="panel-body">
-			<div class="text-center" id="author">
-				<img src="https://cropas.by/wp-content/uploads/2015/05/admin.jpg"
-					width="150" height="150">
-				<h2>Welcome, ${user.firstName}!</h2>
-
-				<div class="footer">
-					<form class="navbar-form pull-right" action="main" method="POST">
-						<input type="hidden" name="action" value="logout" />
-						<div class="btnfirst">
-							<button class="btn btn-danger mb-2" type="submit" name="logout">Log
-								out</button>
+	</nav>
+	<!--================Header Menu Area =================-->
+	
+	<!-- Section: info and button -->
+	<div class="page-content page-container" id="page-content">
+		<div class="padding">
+			<div class="row container d-flex justify-content-center">
+				<div class="col-xl-12 col-md-12">
+					<div class="card user-card-full">
+						<div class="row m-l-0 m-r-0">
+							<div class="col-sm-4 bg-c-lite-green user-profile">
+								<div class="card-block text-center text-white">
+									<div class="m-b-25">
+										<img src="img/adminphoto.png" class="img-radius"
+											alt="User-Profile-Image">
+									</div>
+									<h4 class="f-w-600">Welcome ${user.firstName} !</h4>
+									<p>Doctor office</p>
+									<i
+										class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+									<div class="footer">
+										<form class="navbar-form pull-right" action="main"
+											method="POST">
+											<input type="hidden" name="action" value="logout" />
+											<div class="btnfirst">
+												<button class="btn btn-danger btn-sm" type="submit"
+													name="logout">Log out</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="card-block">
+									<h4 class="text-info m-b-20 p-b-5 b-b-default f-w-600">Information</h4>
+									<div class="row">
+										<div class="col-sm-6">
+											<p class="text-info m-b-10 f-w-600">First name</p>
+											<h6 class="text-black f-w-400">${user.firstName}</h6>
+										</div>
+										<div class="col-sm-6">
+											<p class="text-info m-b-10 f-w-600">Last Name</p>
+											<h6 class="text-black f-w-400">${user.lastName}</h6>
+										</div>
+										<div class="col-sm-6">
+											<p class="text-info m-b-10 f-w-600">Email</p>
+											<h6 class="text-black f-w-400">${user.email}</h6>
+										</div>
+										<div class="col-sm-6">
+											<p class="text-info m-b-10 f-w-600">Phone</p>
+											<h6 class="text-black f-w-400">${user.phone}</h6>
+										</div>
+									</div>
+									<h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Function</h6>
+									<div class="row">
+										<div class="btn-group" role="group" aria-label="Basic example">
+											<form class="navbar-form pull-right" action="main"
+												method="POST">
+												<input type="hidden" name="action" value="show-all-doctors" />
+												<button class="btn btn-outline-info btn-sm mb-2 mr-1"
+													type="submit">
+													<i class="glyphicon glyphicon-star"></i> Show Doctors in
+													clinic
+												</button>
+											</form>
+											<form class="navbar-form pull-right" action="main"
+												method="POST">
+												<input type="hidden" name="action"
+													value="show-all-medicaments" />
+												<button class="btn btn-outline-info btn-sm mb-2 mr-1"
+													type="submit">
+													<i class="glyphicon glyphicon-star"></i> Show All
+													Medicaments
+												</button>
+											</form>
+											<form class="navbar-form pull-right" action="main"
+												method="POST">
+												<input type="hidden" name="action"
+													value="show-doctor-treatments" /> <input type="hidden"
+													name="doctorId" value="${user.id}" />
+												<button class="btn btn-outline-info btn-sm mb-2 mr-1"
+													type="submit">
+													<i class="glyphicon glyphicon-star"></i> Show My Treatments
+												</button>
+											</form>
+										</div>
+									</div>
+								</div>
+								<ul class="social-link list-unstyled m-t-40 m-b-10">
+									<li><a href="#!" data-toggle="tooltip"
+										data-placement="bottom" title=""
+										data-original-title="facebook" data-abc="true"><i
+											class="mdi mdi-facebook feather icon-facebook facebook"
+											aria-hidden="true"></i></a></li>
+									<li><a href="#!" data-toggle="tooltip"
+										data-placement="bottom" title="" data-original-title="twitter"
+										data-abc="true"><i
+											class="mdi mdi-twitter feather icon-twitter twitter"
+											aria-hidden="true"></i></a></li>
+									<li><a href="#!" data-toggle="tooltip"
+										data-placement="bottom" title=""
+										data-original-title="instagram" data-abc="true"><i
+											class="mdi mdi-instagram feather icon-instagram instagram"
+											aria-hidden="true"></i></a></li>
+								</ul>
+							</div>
 						</div>
-					</form>
+					</div>
 				</div>
-			</div>
-			<div class="text-center">
-				<h3>Your information :</h3>
-
-				<p>First name - ${user.firstName}</p>
-				<p>Last name - ${user.lastName}</p>
-				<p>Phone - ${user.phone}</p>
-				<p>Email - ${user.email}</p>
-				<p>Created - ${user.created}</p>
-			</div>
-		</div>
-
-		<div class="btn-group pull-right">
-			<form class="navbar-form pull-right" action="main" method="POST">
-				<input type="hidden" name="action" value="show-all-doctors" />
-				<button class="btn btn-primary mb-2" type="submit">
-					<i class="glyphicon glyphicon-star"></i> Show Doctors in clinic
-				</button>
-			</form>
-		</div>
-
-		<div class="footer">
-			<div class="btn-group pull-right">
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="show-all-medicaments" />
-					<button class="btn btn-primary mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Show All Medicaments
-					</button>
-				</form>
-			</div>
-
-			<div>
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="show-doctor-treatments" />
-					<input type="hidden" name="doctorId" value="${user.id}" />
-					<button class="btn btn-primary mb-2" type="submit">
-						<i class="glyphicon glyphicon-star"></i> Show My Treatments
-					</button>
-				</form>
 			</div>
 		</div>
 	</div>
+
+
+
+
+
+	<!-- Section: info and button -->
+
+
+
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">

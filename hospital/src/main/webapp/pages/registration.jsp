@@ -11,123 +11,177 @@
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/general.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/timeline.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/registration.css" />
+
 </head>
 <body>
-
-
-	<div class="container">
-		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
-			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
-			height="50"> </a>
-		<hr />
-		<c:if test="${not empty errorMessage}">
-			<div class="alert alert-danger">${errorMessage}</div>
-		</c:if>
-
-		<form class="form register-form" method="POST" action="main">
-			<h2>
-				<a>Registration</a>
-			</h2>
-			<div class="body">
-				<!--  First name validation -->
-				<div class="control-group">
-					<label for="first_name"> First name </label> <input type="text"
-						id="first_name" required name="first_name"
-						data-validation="custom"
-						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
-						data-validation-help="First name should start with a letter and consist of 1-20 characters"
-						placeholder="First name" />
-				</div>
-				<!--  Last name validation -->
-				<div class="control-group">
-					<label for="last_name"> Last name </label> <input type="text"
-						id="last_name" required name="last_name" data-validation="custom"
-						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
-						data-validation-help="Last name should start with a letter and consist of 1-20 characters"
-						placeholder="Last name" />
-				</div>
-				<!--  Gender -->
-				<div class="control-group">
-					<p>
-						<label for="gender"> Gender </label> <select name="gender"
-							id="gender">
-							<option value="MALE">Male</option>
-							<option value="FEMALE">Female</option>
-						</select>
-
-					</p>
-				</div>
-				<!--  User Type  -->
-				<div class="control-group">
-					<p>
-						<label for="user_type"> User Type </label> <select
-							name="user_type" id="user_type">
-							<option value="CLIENT">Client</option>
-							<option value="ADMIN">Admin</option>
-							<option value="DOCTOR">Doctor</option>
-						</select>
-
-					</p>
-				</div>
-
-				<!--  Phone name validation -->
-				<div class="control-group">
-					<label for="phone"> Phone </label> <input type="text" id="phone"
-						required name="phone" data-validation="custom"
-						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{11,15}$"
-						data-validation-help="Phone should start with a letter and consist of 1-20 characters"
-						placeholder="Phone" required
-						pattern="^\+?[\s\-\(\)0-9]{11,15}$" 
-						title="The phone number must be 11-15 characters in free format"/>
-				</div>
-				<!--  Email validation -->
-				<div class="control-group">
-					<label for="email"> Email </label> <input type="text" id="email"
-						required name="email" data-validation="custom"
-						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
-						data-validation-help="Email should start with a letter and consist of 1-20 characters"
-						placeholder="Email" required pattern="[^ @]*@[^ @]*"
-						title="Email should start with a letter and consist of 1-20 characters example@email.com" />
-
-				</div>
-
-				<!--  Login validation -->
-				<div class="control-group">
-					<label for="login"> User name </label> <input type="text"
-						id="login" required name="login" data-validation="custom"
-						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$"
-						data-validation-help="Login should start with a letter and consist of 5-20 characters"
-						placeholder="Username" />
-				</div>
-
-
-				<!--  Password validation -->
-				<div class="control-group">
-					<label for="password"> Password </label> <input type="password"
-						id="password" required name="password" data-validation="custom"
-						data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
-						data-validation-help="Password should start with a letter and consist of 1-20 characters"
-						placeholder="Password" />
+	<!--================Header Menu Area =================-->
+	<nav>
+		<div class="navbar navbar-expand-lg navbar-light bg-light"
+			style="background-color: #00CED1;">
+			<div class="col-md-8">
+				<div class="collapse-navbar">
+					<div class="float-left">
+						<a class="navbar-logo"><img src="img/logo.png"
+							width="150" height="50"> </a>
+					</div>
 				</div>
 			</div>
-			<div class="footer">
-				<input type="hidden" name="action" value="registration" />
-				<div class="btnfirst">
-					<button class="btn btn-primary btn-sm mb-1" type="submit"
-						name="registration">Submit</button>
-					<button class="btn btn-primary btn-sm mb-1" type="button"
-						onClick='location.href="http://localhost:8080/hospital"'>Return</button>
+			<div class="col-md-4">
+				<ul class="navbar-nav">
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/index.jsp">Main</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/about.jsp">About
+							us</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-danger">${errorMessage}</div>
+	</c:if>
+	<!--================ End Header Menu Area =================-->
+	<!--================ Banner Area =================-->
+	<div id="carouselExampleSlidesOnly" class="carousel slide"
+		data-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img class="d-block w-100" src="img/home.jpg" alt="First slide">
+				<div class="left-side">
+					<div class="carousel-caption d-none d-md-block">
+						<h1>Registration</h1>
+					</div>
 				</div>
 			</div>
-
-		</form>
-
-
+		</div>
 	</div>
-	<footer>
-		<hr />
+	<!--================Registration start  =================-->
 
-	</footer>
+	<div class="bform py-5">
+		<!-- Row -->
+		<div class="row">
+			<div class="container">
+				<div class="col-lg-6 align-justify-center pr-4 pl-0 contact-form">
+					<div class="">
+						<h2 class="mb-3 font-weight-light">Get Register</h2>
+						<h6 class="subtitle font-weight-normal">Please register to
+							use all services of our company</h6>
+						<form class="mt-3">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" type="text" id="first_name"
+											required name="first_name" data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+											data-validation-help="First name should start with a letter and consist of 1-20 characters"
+											placeholder="First name" />
+
+
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" type="text" id="last_name"
+											required name="last_name" data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+											data-validation-help="Last name should start with a letter and consist of 1-20 characters"
+											placeholder="Last name" />
+									</div>
+								</div>
+								<div class="col-lg-8">
+									<div class="form-group">
+										<p>
+											<label for="gender"> Gender </label> <select name="gender"
+												id="gender">
+												<option value="MALE">Male</option>
+												<option value="FEMALE">Female</option>
+											</select>
+
+										</p>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<p>
+										<label for="user_type"> User Type </label> <select
+											name="user_type" id="user_type">
+											<option value="CLIENT">Client</option>
+											<option value="ADMIN">Admin</option>
+											<option value="DOCTOR">Doctor</option>
+										</select>
+
+									</p>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" type="text" id="phone" required
+											name="phone" data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{11,15}$"
+											data-validation-help="Phone should start with a letter and consist of 1-20 characters"
+											placeholder="Phone" required
+											pattern="^\+?[\s\-\(\)0-9]{11,19}$"
+											title="The phone number must be 11-19 characters in free format" />
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" type="text" id="email" required
+											name="email" data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+											data-validation-help="Email should start with a letter and consist of 1-20 characters"
+											placeholder="Email" required pattern="[^ @]*@[^ @]*"
+											title="Email should start with a letter and consist of 1-20 characters example@email.com" />
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" type="text" id="login" required
+											name="login" data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$"
+											data-validation-help="Login should start with a letter and consist of 5-20 characters"
+											placeholder="Username" />
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" type="password" id="password"
+											required name="password" data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+											data-validation-help="Password should start with a letter and consist of 1-20 characters"
+											placeholder="Password" />
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="footer">
+										<input type="hidden" name="action" value="registration" />
+										<div class="btnfirst">
+											<button
+												class="btn btn-md btn-block btn-danger-gradiant text-white border-0"
+												type="submit" name="registration">Create Account</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================Registration end  =================-->
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">

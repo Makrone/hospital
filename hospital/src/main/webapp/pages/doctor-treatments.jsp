@@ -9,30 +9,65 @@
 <title>Treatment</title>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/general.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/timeline.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/profile.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/registration.css" />
 </head>
 <body>
-	<div class="container">
-		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
-			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
-			height="50"> </a>
-	</div>
-	<div class="footer">
-		<form class="navbar-form pull-left" action="main" method="POST">
-			<input type="hidden" name="action" value="logout" />
-			<div class="btnfirst">
-				<button class="btn btn-danger btn-sm" style="float: right;"
-					type="submit" name="logout">Log out</button>
+	<!--================Header Menu Area =================-->
+	<nav>
+		<div class="navbar navbar-expand-lg navbar-light bg-light"
+			style="background-color: #00CED1;">
+			<div class="col-md-6">
+				<div class="collapse-navbar">
+					<div class="float-left">
+						<a class="navbar-logo"><img src="img/logo.png" width="150"
+							height="50"> </a>
+					</div>
+				</div>
 			</div>
-		</form>
-		<form class="navbar-form pull-right" action="main" method="POST">
-			<input type="hidden" name="action" value="go-to-profile" />
-			<div class="btnfirst">
-				<button class="btn btn-primary btn-sm mb-2" style="float: right;"
-					type="submit" name="go-to-profile">Profile</button>
+			<div class="col-md-4">
+				<ul class="navbar-nav">
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/index.jsp">Main</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/about.jsp">About
+							us</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
+				</ul>
 			</div>
-		</form>
-	</div>
-	<hr>
+			<form class="navbar-form pull-left" action="main" method="POST">
+				<input type="hidden" name="action" value="logout" />
+				<div class="btnfirst">
+					<button class="btn btn-outline-danger btn-sm mb-2 mr-1"
+						style="float: right;" type="submit" name="logout">Log out</button>
+				</div>
+			</form>
+			<form class="navbar-form pull-right" action="main" method="POST">
+				<input type="hidden" name="action" value="go-to-profile" />
+				<div class="btnfirst">
+					<button class="btn btn-outline-primary btn-sm mb-2 mr-1"
+						style="float: right;" type="submit" name="go-to-profile">Profile</button>
+				</div>
+			</form>
+		</div>
+	</nav>
+	<hr />
+	<!--================ End Header Menu Area =================-->
 	<c:if test="${not empty errorMessage}">
 		<div class="alert alert-success">${errorMessage}</div>
 	</c:if>
@@ -48,25 +83,28 @@
 
 				<div class="row">
 
+
 					<div class="col-md-3">
 						<img
 							src="https://chekhovsc.ru/templates/yootheme/cache/lchni_gangrny_03-min-214b9939.jpeg"
 							width="200" height="150" alt="Bootstrap Blocks Owl Carousel 1" />
 					</div>
 					<div class="col-md-7">
-						<div class="category">Выписано клиенту:
-							${treatment.client.firstName} ${treatment.client.lastName}</div>
-
-						<div class="post-review">
-							<h4 class="post-title">${treatment.doctor.firstName}</h4>
-							<p class="post-description">${treatment.doctor.lastName}</p>
+						<div class="category">
+							<b class="col-sm text-info f-w-600">Issued to the client:</b>
+							${treatment.client.firstName} ${treatment.client.lastName}
 						</div>
+						<p class="post-title">
+							<b class="col-sm text-danger f-w-600">Prescribed by doctor:</b>
+							${treatment.doctor.firstName} ${treatment.doctor.lastName}
+						</p>
 					</div>
 					<div class="col-md-2">
 						<form class="navbar-form pull-right" action="main" method="POST">
 							<input type="hidden" name="action" value="check-on-patient" /> <input
 								type="hidden" name="treatmentId" value="${treatment.id}" />
-							<button class="btn btn-primary btn-sm mb-2" type="submit">
+							<button class="btn btn-outline-info btn-sm mb-2 mr-1"
+								type="submit">
 								<i class="glyphicon glyphicon-star">Сheck on the patient</i>
 							</button>
 						</form>

@@ -14,101 +14,162 @@
 	href="${pageContext.request.contextPath}/css/general.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/timeline.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/slider.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/registration.css" />
 
 </head>
 <body>
-	<div class="collapse-navbar">
-		<div class="float-left">
-			<a class="navbar-logo" href=""><img
-				src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
-				height="50"> </a>
+
+	<!--================Header Menu Area =================-->
+	<nav>
+		<div class="navbar navbar-expand-lg navbar-light bg-light"
+			style="background-color: #00CED1;">
+			<div class="col-md-6">
+				<div class="collapse-navbar">
+					<div class="float-left">
+						<a class="navbar-logo"><img src="img/logo.png" width="150"
+							height="50"> </a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<ul class="navbar-nav">
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/index.jsp">Main</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/about.jsp">About
+							us</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
+				</ul>
+			</div>
+			<div class="col-md-2">
+				<div class="float-right pull-right">
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<form action="main" method="POST">
+							<input type="hidden" name="action" value="go-to-page" /> <input
+								type="hidden" name="page" value="/pages/login.jsp">
+							<button class="btn btn-outline-primary btn-sm" type="submit">Sign
+								in</button>
+						</form>
+					</div>
+
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<form action="main" method="POST">
+							<input type="hidden" name="action" value="go-to-page" /> <input
+								type="hidden" name="page" value="/pages/registration.jsp">
+							<button class="btn btn-outline-primary btn-sm" type="submit">Registration</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!--================Header Menu Area =================-->
+
+	<!--================ Home Banner Area =================-->
+	<div id="carouselExampleSlidesOnly" class="carousel slide"
+		data-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img class="d-block w-100" src="img/home.jpg" alt="First slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h1>We Care for Your Health Every Moment</h1>
+					<p>If you are looking at blank cassettes on the web, you may be
+						very confused at the difference in price You may see some for as
+						low as each.</p>
+
+					<div class="bform py-5" role="group" aria-label="Basic example">
+						<form action="main" method="POST">
+							<input type="hidden" name="action" value="go-to-page" /> <input
+								type="hidden" name="page" value="/pages/registration.jsp">
+							<button
+								class="btn btn-block btn-danger-gradiant text-white border-0"
+								type="submit">Registration</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="float-right">
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<form action="main" method="POST">
-				<input type="hidden" name="action" value="go-to-page" /> <input
-					type="hidden" name="page" value="/pages/login.jsp">
-				<button class="btn btn-primary btn-sm" type="submit">Sign
-					in</button>
-			</form>
-		</div>
+	<!--================ Home Banner Area =================-->
 
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<form action="main" method="POST">
-				<input type="hidden" name="action" value="go-to-page" /> <input
-					type="hidden" name="page" value="/pages/registration.jsp">
-				<button class="btn btn-primary btn-sm" type="submit">Registration</button>
-			</form>
+	<!--================ Start slider  Area =================-->
+	<!-- Header -->
+	<header class=" text-center py-2 mb-3">
+		<div class="container"></div>
+	</header>
+	<header class="text-center">
+		<div class="container">
+			<h2>Meet the Team</h2>
 		</div>
+	</header>
+
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<!-- Team Member 1 -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-0 shadow">
+					<img src="img/t1.jpg" class="card-img-top" alt="...">
+					<div class="card-body text-center">
+						<h5 class="card-title mb-0">Alex Soloduha</h5>
+						<div class="card-text text-black-50">Ultrasonographer</div>
+					</div>
+				</div>
+			</div>
+			<!-- Team Member 2 -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-0 shadow">
+					<img src="img/t2.jpg" class="card-img-top" alt="...">
+					<div class="card-body text-center">
+						<h5 class="card-title mb-0">Angelina Novikava</h5>
+						<div class="card-text text-black-50">Therapist</div>
+					</div>
+				</div>
+			</div>
+			<!-- Team Member 3 -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-0 shadow">
+					<img src="img/t3.jpg" class="card-img-top" alt="...">
+					<div class="card-body text-center">
+						<h5 class="card-title mb-0">Danik Radetski</h5>
+						<div class="card-text text-black-50">Surgeon</div>
+					</div>
+				</div>
+			</div>
+			<!-- Team Member 4 -->
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card border-0 shadow">
+					<img src="img/t4.jpg" class="card-img-top" alt="...">
+					<div class="card-body text-center">
+						<h5 class="card-title mb-0">Maria Plahotina</h5>
+						<div class="card-text text-black-50">Neurologist</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
 	</div>
+	<!-- /.container -->
+	<!--================ Finish slider Area =================-->
 
-	<hr />
-
-
-	<div class="navbar navbar-expand-lg navbar-light bg-light">
-		<ul class="navbar-brand">
-			<li class="nav-item"><a
-				class="nav-item-child nav-item-hover active" href="index.jsp">Main</a></li>
-			<li class="nav-item"><a class="nav-item-child nav-item-hover"
-				href="${pageContext.request.contextPath}/pages/about.jsp">About
-					us</a></li>
-			<li class="nav-item"><a class="nav-item-child nav-item-hover"
-				href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
-			<li class="nav-item"><a class="nav-item-child nav-item-hover"
-				href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
-		</ul>
-	</div>
-	<div class="row">
-		<h2>MCR Center capabilities</h2>
-
-		<div class="col-md-3">
-			<div class="collapse-navbar">
-				<a class="navbar-logo" href=""><img
-					src="https://www.lode.by/images/cache/ec1/5703c18fdeb81ace2af0d86e004317e7.png"
-					width="150" height="100"> </a>
-			</div>
-			<p>
-				<b>Adult diagnostic department</b>
-			</p>
-		</div>
-		<div class="col-md-3">
-			<div class="collapse-navbar">
-				<a class="navbar-logo" href=""><img
-					src="https://www.lode.by/images/cache/19c/77aa249a199be6ea44ec8dec94691039.png"
-					width="150" height="100"> </a>
-			</div>
-			<p>
-				<b>Children's diagnostic department</b>
-			</p>
-		</div>
-		<div class="col-md-3">
-			<div class="collapse-navbar">
-				<a class="navbar-logo" href=""><img
-					src="https://www.lode.by/images/cache/e53/2108cb416e06807df9a6aa123a2154c3.png"
-					width="150" height="100"> </a>
-			</div>
-			<p>
-				<b>Department of CT densitometry</b>
-			</p>
-		</div>
-		<div class="col-md-3">
-			<div class="collapse-navbar">
-				<a class="navbar-logo" href=""><img
-					src="https://www.lode.by/images/cache/e30/f73f7a7a2b6d849eca16ba5c50769863.png"
-					width="150" height="100"> </a>
-			</div>
-			<p>
-				<b>Department of MRI densitometry</b>
-			</p>
-		</div>
-	</div>
-	<hr />
 	<!-- FEEDBACK -->
 
 	<hr>
-	<h1>Feedback</h1>
-
+	<div class="text-center">
+		<h2>Feedback</h2>
+	</div>
 	<div class="container">
 
 		<ul class="timeline">

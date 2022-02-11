@@ -9,53 +9,117 @@
 <title>Sign in</title>
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
-</head>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/general.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/timeline.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/registration.css" />
 </head>
 <body>
-	<div class="container">
-		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
-			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
-			height="50"> </a>
-	</div>
-	<hr />
-	<c:if test="${not empty errorMessage}">
-		<div class="alert alert-danger">${errorMessage}</div>
-	</c:if>
-
-
-	<form method="POST" action="main">
-		<h2>
-			<a>Welcome</a>
-		</h2>
-
-		<!--  Login validation -->
-		<div class="control-group">
-			<label for="login"> User name </label> <input type="text" id="login"
-				required name="login" data-validation="custom"
-				data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$"
-				data-validation-help="Login should start with a letter and consist of 5-20 characters"
-				placeholder="Username" />
-		</div>
-
-
-		<!--  Password validation -->
-		<div class="control-group">
-			<label for="password"> Password </label> <input type="password"
-				id="password" required name="password" data-validation="custom"
-				data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
-				data-validation-help="Password should start with a letter and consist of 1-20 characters"
-				placeholder="Password" />
-		</div>
-		<div class="footer">
-			<input type="hidden" name="action" value="login" />
-			<div class="btnfirst">
-				<button class="btn btn-primary btn-sm mb-2" type="submit"
-					name="login">Submit</button>
-				<button class="btn btn-primary btn-sm mb-2" type="button"
-					onClick='location.href="http://localhost:8080/hospital"'>Return</button>
+	<!--================Header Menu Area =================-->
+	<nav>
+		<div class="navbar navbar-expand-lg navbar-light bg-light"
+			style="background-color: #00CED1;">
+			<div class="col-md-8">
+				<div class="collapse-navbar">
+					<div class="float-left">
+						<a class="navbar-logo"><img src="img/logo.png" width="150"
+							height="50"> </a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<ul class="navbar-nav">
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/index.jsp">Main</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/about.jsp">About
+							us</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
+				</ul>
 			</div>
 		</div>
-	</form>
+	</nav>
+	<!--================ End Header Menu Area =================-->
+
+	<!--================ Banner Area =================-->
+	<div id="carouselExampleSlidesOnly" class="carousel slide"
+		data-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img class="d-block w-100" src="img/home.jpg" alt="First slide">
+				<div class="left-side">
+					<div class="carousel-caption d-none d-md-block ">
+						<h1>Log in</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================Registration start  =================-->
+	<div class="bform py-5">
+		<!-- Row -->
+		<div class="row">
+			<div class="container">
+				<div class="col-lg-6 align-justify-center pr-4 pl-0 contact-form">
+					<div class="">
+					<h2 class="mb-3 font-weight-light"></h2>
+						<h6 class="subtitle font-weight-normal">Enter your
+							information when registering</h6>
+						<form class="mt-3" method="POST" action="main">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" id="login" required name="login"
+											data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$"
+											data-validation-help="Login should start with a letter and consist of 5-20 characters"
+											placeholder="Username" />
+
+
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input class="form-control" type="password" id="password"
+											required name="password" data-validation="custom"
+											data-validation-regexp="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+											data-validation-help="Password should start with a letter and consist of 1-20 characters"
+											placeholder="Password" />
+									</div>
+								</div>
+								<c:if test="${not empty errorMessage}">
+									<div class="alert alert-danger">${errorMessage}</div>
+								</c:if>
+								<div class="col-lg-12">
+
+									<div class="footer">
+										<input type="hidden" name="action" value="login" />
+										<div class="btnfirst">
+											<button
+												class="btn btn-md btn-block btn-danger-gradiant text-white border-0"
+												type="submit" name="login">Submit</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================Registration end  =================-->
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">

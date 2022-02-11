@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,18 +11,76 @@
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/general.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/timeline.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/registration.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/style.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/_contact.scss" />
+
 </head>
 <body>
-	<div class="container">
-		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
-			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
-			height="50"> </a>
-	</div>
-	<hr />
-	<div class="text-center">
-	<img src="https://i.imgur.com/4MMuv1L.jpg" width="400" height="200"
-		class="img-thumbnail">
+	<!--================Header Menu Area =================-->
+	<nav>
+		<div class="navbar navbar-expand-lg navbar-light bg-light"
+			style="background-color: #00CED1;">
+			<div class="col-md-8">
+				<div class="collapse-navbar">
+					<div class="float-left">
+						<a class="navbar-logo"><img
+							src="https://i.imgur.com/CRCcxvA.png" width="150" height="50">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<ul class="navbar-nav">
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/index.jsp">Main</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/about.jsp">About
+							us</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
+				</ul>
+			</div>
 		</div>
+	</nav>
+	<!--================ End Header Menu Area =================-->
+
+	<!--================Start banner Menu Area =================-->
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-success">${errorMessage}</div>
+	</c:if>
+	<div id="carouselExampleSlidesOnly" class="carousel slide"
+		data-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img class="d-block w-100" src="https://i.imgur.com/pztJ6ax.jpg"
+					alt="First slide">
+				<div class="left-side">			
+					<div class="carousel-caption d-none d-md-block">
+						<h1>Certificates</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End banner Menu Area =================-->
+	<div class="text-center">
+		<img src="https://i.imgur.com/4MMuv1L.jpg" width="400" height="200"
+			class="img-thumbnail">
+	</div>
 </body>
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">

@@ -11,34 +11,62 @@
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/general.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/profile.css" />
+
 </head>
 <body>
-	<div class="container">
-		<a class="navbar-logo" href="http://localhost:8080/hospital"><img
-			src="http://www.picart.ru/folio-style/mcr-logo02.gif" width="150"
-			height="50"> </a>
-			<div class="footer">
-				<form class="navbar-form pull-left" action="main" method="POST">
-					<input type="hidden" name="action" value="logout" />
-					<div class="btnfirst">
-						<button class="btn btn-danger btn-sm" style="float: right;"
-							type="submit" name="logout">Log out</button>
+	<!--================Header Menu Area =================-->
+	<nav>
+		<div class="navbar navbar-expand-lg navbar-light bg-light"
+			style="background-color: #00CED1;">
+			<div class="col-md-6">
+				<div class="collapse-navbar">
+					<div class="float-left">
+						<a class="navbar-logo"><img src="img/logo.png" width="150"
+							height="50"> </a>
 					</div>
-				</form>
-				<form class="navbar-form pull-right" action="main" method="POST">
-					<input type="hidden" name="action" value="go-to-profile" />
-					<div class="btnfirst">
-						<button class="btn btn-primary btn-sm mb-2" style="float: right;"
-							type="submit" name="go-to-profile">Profile</button>
-					</div>
-				</form>
+				</div>
 			</div>
+			<div class="col-md-4">
+				<ul class="navbar-nav">
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/index.jsp">Main</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/about.jsp">About
+							us</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/contact.jsp">Contacts</a></li>
+					<li class="navbar-brand"><a
+						class="nav-item-child nav-item-hover"
+						href="${pageContext.request.contextPath}/pages/certificates.jsp">Certificates</a></li>
+				</ul>
+			</div>
+			<form class="navbar-form pull-left" action="main" method="POST">
+				<input type="hidden" name="action" value="logout" />
+				<div class="btnfirst">
+					<button class="btn btn-outline-danger btn-sm mb-2 mr-1"
+						style="float: right;" type="submit" name="logout">Log out</button>
+				</div>
+			</form>
+			<form class="navbar-form pull-right" action="main" method="POST">
+				<input type="hidden" name="action" value="go-to-profile" />
+				<div class="btnfirst">
+					<button class="btn btn-outline-primary btn-sm mb-2 mr-1"
+						style="float: right;" type="submit" name="go-to-profile">Profile</button>
+				</div>
+			</form>
 		</div>
-	<hr>
+	</nav>
 	<c:if test="${not empty errorMessage}">
-		<div class="alert alert-success">${errorMessage}</div>
+		<div class="alert alert-danger">${errorMessage}</div>
 	</c:if>
-
+<hr />
 	<h5>An organization that concentrates all kinds of modern medical
 		diagnostic, specialized medical care and rehabilitation technologies.
 		The MCR is actively researching new methods of diagnosis, treatment
@@ -56,17 +84,23 @@
 					</div>
 					<div class="col-md-5">
 						<div class="category">
-							Name: <b>${medicament.name}</b>
+							<b class="col-sm text-info f-w-600">Name:</b> ${medicament.name}
 						</div>
-						<p class="post-title">Description: ${medicament.description}</p>
-						<p class="post-description">Cost: ${medicament.cost}$</p>
+						<p class="post-title">
+							<b class="col-sm text-info f-w-600">Description:</b>
+							${medicament.description}
+						</p>
+						<p class="post-description">
+							<b class="col-sm text-danger f-w-600">Cost:</b> ${medicament.cost}$
+						</p>
 
 					</div>
 					<div class="col-md-2">
 						<form class="navbar-form pull-right" action="main" method="POST">
 							<input type="hidden" name="action" value="delete-medicaments" />
 							<input type="hidden" name="medicamentId" value="${medicament.id}" />
-							<button class="btn btn-danger btn-sm mb-2" type="submit">
+							<button class="btn btn-outline-danger btn-sm mb-2 mr-1"
+								type="submit">
 								<i class="glyphicon glyphicon-star"></i> Delete service
 							</button>
 						</form>
@@ -74,7 +108,8 @@
 						<form class="navbar-form pull-right" action="main" method="POST">
 							<input type="hidden" name="action" value="go-to-edit-medicament" />
 							<input type="hidden" name="medicamentId" value="${medicament.id}" />
-							<button class="btn btn-primary btn-sm mb-2" type="submit">
+							<button class="btn btn-outline-primary btn-sm mb-2 mr-1"
+								type="submit">
 								<i class="glyphicon glyphicon-star"></i> Edit medicament
 							</button>
 						</form>
