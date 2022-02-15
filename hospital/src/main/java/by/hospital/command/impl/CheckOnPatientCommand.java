@@ -33,7 +33,7 @@ public class CheckOnPatientCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			String treatmentId = request.getParameter("treatmentId");
 

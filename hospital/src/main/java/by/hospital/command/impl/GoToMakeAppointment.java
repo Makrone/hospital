@@ -1,5 +1,8 @@
 package by.hospital.command.impl;
 
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +26,7 @@ public class GoToMakeAppointment implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			Long doctorId = Long.valueOf(request.getParameter("doctorId"));
 			User doctor = userService.getById(doctorId);

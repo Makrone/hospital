@@ -1,8 +1,10 @@
 package by.hospital.command.impl;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +31,7 @@ public class AddMedicamentCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			Medicament medicament = new Medicament();
 			medicament.setName(request.getParameter(NAME));
@@ -40,6 +42,7 @@ public class AddMedicamentCommand implements ICommand {
 			List<Medicament> medicaments = medicamentService.getAll();
 			request.setAttribute("medicaments", medicaments);
 			return "/pages/medicaments.jsp";
+			
 
 		} catch (ServiceException e) {
 			logger.error("An error occurred while adding a service ", e);

@@ -1,7 +1,9 @@
 package by.hospital.command.impl;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +27,7 @@ public class DeleteMedicalServiceCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			String serviceId = request.getParameter("serviceId");
 			if (serviceId == null) {

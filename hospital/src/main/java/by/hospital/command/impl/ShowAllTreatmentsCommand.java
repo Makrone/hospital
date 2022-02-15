@@ -25,7 +25,7 @@ public class ShowAllTreatmentsCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			List<Treatment> treatService = treatmentService.getAll();
 			request.setAttribute("treatments", treatService);

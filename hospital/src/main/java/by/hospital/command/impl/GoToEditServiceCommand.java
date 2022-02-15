@@ -24,7 +24,7 @@ public class GoToEditServiceCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			Long serviceId = Long.valueOf(request.getParameter("serviceId"));
 			MedicalService medSer = medicalService.getById(serviceId);

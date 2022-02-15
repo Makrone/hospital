@@ -10,7 +10,7 @@ import by.hospital.domain.User;
 public class GoToPageCommand implements ICommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		String page = request.getParameter("page");
 		if (page != null) {
 			return page;

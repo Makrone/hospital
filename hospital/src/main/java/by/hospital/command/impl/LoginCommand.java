@@ -31,7 +31,7 @@ public class LoginCommand implements ICommand {
 		userService = new UserService();
 	}
 
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			String login = (request.getParameter(USERNAME));
 			String password = (request.getParameter(PASSWORD));

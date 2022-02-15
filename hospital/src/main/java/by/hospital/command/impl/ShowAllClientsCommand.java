@@ -26,7 +26,7 @@ public class ShowAllClientsCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			List<User> user = userService.findByType(UserType.CLIENT);
 			request.setAttribute("users", user);

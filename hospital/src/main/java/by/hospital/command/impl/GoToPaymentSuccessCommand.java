@@ -1,7 +1,9 @@
 package by.hospital.command.impl;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +22,7 @@ public class GoToPaymentSuccessCommand implements ICommand {
 
 	}
 
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		User sessionUser = (User) request.getSession().getAttribute("user");
 		try {
 			BigDecimal totalCost = new BigDecimal(request.getParameter("total"));

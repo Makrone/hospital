@@ -13,7 +13,7 @@ public class GoToProfileCommand implements ICommand {
 		super();
 	}
 
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			return handleLoginError(request, "Error");

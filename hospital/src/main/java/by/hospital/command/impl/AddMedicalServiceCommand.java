@@ -1,8 +1,10 @@
 package by.hospital.command.impl;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +32,7 @@ public class AddMedicalServiceCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			if (request.getParameter(NAME) == null || request.getParameter(DESCRIPTION) == null
 					|| request.getParameter(COST) == null) {
@@ -54,4 +56,5 @@ public class AddMedicalServiceCommand implements ICommand {
 
 		}
 	}
+
 }

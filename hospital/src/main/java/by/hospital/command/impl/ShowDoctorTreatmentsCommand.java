@@ -24,7 +24,7 @@ public class ShowDoctorTreatmentsCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			Long doctorId = Long.valueOf(request.getParameter("doctorId"));
 			List<TreatmentDTO> treatService = treatmentService.findByDoctorId(doctorId);

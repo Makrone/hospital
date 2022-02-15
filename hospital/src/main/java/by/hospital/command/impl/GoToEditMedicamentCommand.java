@@ -23,7 +23,7 @@ public class GoToEditMedicamentCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			Long medicamentId = Long.valueOf(request.getParameter("medicamentId"));
 			Medicament medicament = medicamentService.getById(medicamentId);

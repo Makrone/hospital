@@ -13,7 +13,7 @@ public class ShowClientOrderCommand implements ICommand {
 	private static final String FIND_DOCTOR = "DOCTOR";
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		String page = null;
 		User user = (User) request.getSession().getAttribute(INFO_USER);
 

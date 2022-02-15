@@ -26,7 +26,7 @@ public class CancelTreatmentCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			String treatmentId = request.getParameter("treatmentId");
 			if (treatmentId == null) {

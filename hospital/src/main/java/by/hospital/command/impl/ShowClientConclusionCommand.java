@@ -42,7 +42,7 @@ public class ShowClientConclusionCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		try {
 			Long treatmentId = Long.valueOf(request.getParameter("treatmentId"));
 			Recipe recipe = recepiService.findByTreatmentId(treatmentId);

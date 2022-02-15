@@ -1,8 +1,11 @@
 package by.hospital.command.impl;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,7 +41,7 @@ public class RegistrationCommand implements ICommand {
 	}
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			User user = new User();
 			user.setFirstName(request.getParameter(FIRST_NAME));
@@ -56,6 +59,12 @@ public class RegistrationCommand implements ICommand {
 			request.setAttribute("errorMessage", "There was an error during registration");
 			return "/pages/error-500.jsp";
 		}
+	}
+
+	public void postRequestHandling(HttpServletRequest request, HttpServletResponse response, String page,
+			ServletContext servletContext) throws ServletException, IOException {
+		response.sendRedirect(request.getContextPath() + page);
+
 	}
 
 }
