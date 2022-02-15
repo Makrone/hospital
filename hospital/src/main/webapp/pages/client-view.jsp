@@ -61,7 +61,7 @@
 						<div class="col-sm-4 bg-c-lite-green user-profile">
 							<div class="card-block text-center text-white">
 								<div class="m-b-25">
-									<img src="img/adminphoto.png" class="img-radius"
+									<img src="${pageContext.request.contextPath}img/adminphoto.png" class="img-radius"
 										alt="User-Profile-Image">
 								</div>
 								<h4 class="f-w-600">Welcome ${user.firstName} !</h4>

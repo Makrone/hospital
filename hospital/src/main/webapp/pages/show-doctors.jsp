@@ -29,7 +29,7 @@
 			<div class="col-md-6">
 				<div class="collapse-navbar">
 					<div class="float-left">
-						<a class="navbar-logo"><img src="img/logo.png" width="150"
+						<a class="navbar-logo"><img src="${pageContext.request.contextPath}/img/logo.png" width="150"
 							height="50"> </a>
 					</div>
 				</div>

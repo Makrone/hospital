@@ -26,7 +26,7 @@
 			<div class="col-md-8">
 				<div class="collapse-navbar">
 					<div class="float-left">
-						<a class="navbar-logo"><img src="img/logo.png" width="150"
+						<a class="navbar-logo"><img src="${pageContext.request.contextPath}/img/logo.png" width="150"
 							height="50"> </a>
 					</div>
 				</div>
@@ -57,7 +57,7 @@
 		data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img class="d-block w-100" src="img/home.jpg" alt="First slide">
+				<img class="d-block w-100" src="${pageContext.request.contextPath}/img/home.jpg" alt="First slide">
 				<div class="left-side">
 					<div class="carousel-caption d-none d-md-block ">
 						<h1>Log in</h1>

@@ -27,8 +27,8 @@
 			<div class="col-md-8">
 				<div class="collapse-navbar">
 					<div class="float-left">
-						<a class="navbar-logo"><img src="img/logo.png"
-							width="150" height="50"> </a>
+						<a class="navbar-logo"><img src="${pageContext.request.contextPath}/img/logo.png" width="150"
+							height="50"> </a>
 					</div>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 		data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img class="d-block w-100" src="img/home.jpg" alt="First slide">
+				<img class="d-block w-100" src="${pageContext.request.contextPath}/img/home.jpg" alt="First slide">
 				<div class="left-side">
 					<div class="carousel-caption d-none d-md-block">
 						<h1>Registration</h1>
@@ -80,7 +80,7 @@
 						<h2 class="mb-3 font-weight-light">Get Register</h2>
 						<h6 class="subtitle font-weight-normal">Please register to
 							use all services of our company</h6>
-						<form class="mt-3">
+						<form class="mt-3" action="main" method="POST">
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group">
